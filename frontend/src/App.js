@@ -2,8 +2,10 @@ import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import Loader from "./components/Loader";
 
+// ** COMPONENTS ** //
 const Header = lazy(() => import("./components/header/Header"));
 
+// ** SCREENS OR LAYOUTS ** //
 const HomeScreen = lazy(() => import("./screens/HomeScreen"));
 const LoginScreen = lazy(() => import("./screens/LoginScreen"));
 const RegisterScreen = lazy(() => import("./screens/RegisterScreen"));
