@@ -1,18 +1,14 @@
 import React from "react";
-import { Alert, Spinner } from "@material-tailwind/react";
+import { Alert } from "@material-tailwind/react";
 import { useGetProductsQuery } from "../redux/slices/productsApiSlice";
 import ProductList from "../components/product/ProductList";
+import Loader from "../components/Loader";
 
 const HomeScreen = () => {
 	const { data, isLoading, isError, error } = useGetProductsQuery({});
 
 	if (isLoading) {
-		return (
-			<Spinner
-				className="h-screen w-24 mx-auto mt-5 p-5 flex place-content-center"
-				color="blue"
-			/>
-		);
+		return <Loader />;
 	}
 
 	if (isError && error) {
