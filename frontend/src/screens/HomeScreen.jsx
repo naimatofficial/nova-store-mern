@@ -16,6 +16,7 @@ const HomeScreen = () => {
 	}
 
 	if (data && Array.isArray(data.doc) && data.doc.length > 0) {
+		console.log(data.doc);
 		return (
 			<div>
 				<ProductList products={data.doc} />

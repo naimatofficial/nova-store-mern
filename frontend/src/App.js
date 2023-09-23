@@ -10,7 +10,7 @@ function App() {
 		<Suspense fallback={<Loader />}>
 			<Header />
 			<Routes>
-				<Route path="/" component={<HomeScreen />} />
+				<Route path="/" element={<HomeScreen />} />
 			</Routes>
 		</Suspense>
 	);
