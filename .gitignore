@@ -18,6 +18,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 
 # Ignore the following patterns
 # This ignores all .env files except for .env in the root directory
