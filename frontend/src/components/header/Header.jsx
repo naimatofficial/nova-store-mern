@@ -8,9 +8,12 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import ProfileMenu from "./ProfileMenu";
 
 export default function Header() {
 	const [openNav, setOpenNav] = React.useState(false);
+	const { userInfo } = useSelector((state) => state.auth);
 
 	React.useEffect(() => {
 		window.addEventListener(
@@ -59,12 +62,18 @@ export default function Header() {
 					</Link>
 					<div className="flex items-center gap-4">
 						<div className="mr-4 hidden lg:block">{navList}</div>
-						<Button variant="outlined" size="sm" className="">
-							<Link to="/login">Login</Link>
-						</Button>
-						<Button variant="gradient" size="sm" className="">
-							<Link to="/register">Register</Link>
-						</Button>
+						{userInfo ? (
+							<ProfileMenu />
+						) : (
+							<>
+								<Button variant="outlined" size="sm" className="">
+									<Link to="/login">Login</Link>
+								</Button>
+								<Button variant="gradient" size="sm" className="">
+									<Link to="/register">Register</Link>
+								</Button>
+							</>
+						)}
 						<div>
 							<FaShoppingCart className="text-lg" />
 						</div>
