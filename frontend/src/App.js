@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Loader from "./components/Loader";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,10 +16,11 @@ const ProductScreen = lazy(() => import("./screens/ProductScreen"));
 const ProfileScreen = lazy(() => import("./screens/ProfileScreen"));
 
 function App() {
+	const { pathname } = useLocation();
 	return (
 		<Suspense fallback={<Loader />}>
 			<ToastContainer />
-			<Header />
+			{pathname !== "/login" && pathname !== "/register" && <Header />}
 			<Routes>
 				<Route path="/" element={<HomeScreen />} />
 				<Route path="/login" element={<LoginScreen />} />
@@ -27,7 +28,7 @@ function App() {
 				<Route path="/product/:productId" element={<ProductScreen />} />
 				<Route path="/profile" element={<ProfileScreen />} />
 			</Routes>
-			<Footer />
+			{pathname !== "/login" && pathname !== "/register" && <Footer />}
 		</Suspense>
 	);
 }
