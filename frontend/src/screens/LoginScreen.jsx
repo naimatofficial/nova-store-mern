@@ -50,13 +50,13 @@ const LoginScreen = () => {
 				height={200}
 				className="mx-auto mt-4 p-4"
 			/>
-			<div className="w-fit mx-auto mt-4 p-8 bg-white shadow-lg rounded-md ">
+			<div className="w-fit mx-auto mt-4 p-8 bg-white shadow-lg rounded-lg ">
 				<Card color="transparent" shadow={false}>
 					<Typography variant="h4" color="blue-gray">
 						Login
 					</Typography>
 					<Typography color="gray" className="mt-1 font-normal">
-						to Continue with Nova Store 💙
+						Welcome back to Nova Store
 					</Typography>
 					<form
 						onSubmit={submitHandler}
@@ -83,7 +83,7 @@ const LoginScreen = () => {
 						<Button
 							type="submit"
 							fullWidth
-							className="bg-yellow-800 text-white text-lg mt-6"
+							className="bg-yellow-800 text-black text-lg mt-6"
 						>
 							Login
 						</Button>

@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRegisterMutation } from "./../redux/slices/usersApiSlice";
 import { toast } from "react-toastify";
 import { setCredentials } from "../redux/slices/authSlice";
+import Loader from "../components/Loader";
 
 const RegisterScreen = () => {
 	const [name, setName] = useState("");
@@ -42,7 +43,9 @@ const RegisterScreen = () => {
 			dispatch(setCredentials({ ...res }));
 			navigate(redirect);
 		} catch (err) {
-			toast.error(err?.data?.message || err.error);
+			toast.error(err?.data?.message || err.error, {
+				position: toast.POSITION.TOP_CENTER,
+			});
 		}
 	};
 	return (
@@ -60,16 +63,35 @@ const RegisterScreen = () => {
 						Sign Up
 					</Typography>
 					<Typography color="gray" className="mt-1 font-normal">
-						Connect with Nova Store 💙
+						Connect with Nova Store
 					</Typography>
 					<form
 						onSubmit={submitHandler}
 						className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
 					>
 						<div className="mb-4 flex flex-col gap-6">
-							<Input size="lg" label="Name" />
-							<Input size="lg" label="Email" />
-							<Input type="password" size="lg" label="Password" />
+							<Input
+								size="lg"
+								label="Name"
+								name="name"
+								value={name}
+								onChange={(e) => setName(e.target.value)}
+							/>
+							<Input
+								size="lg"
+								label="Email"
+								name="email"
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+							/>
+							<Input
+								type="password"
+								size="lg"
+								label="Password"
+								name="password"
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+							/>
 						</div>
 						<Checkbox
 							label={
@@ -91,11 +113,12 @@ const RegisterScreen = () => {
 						/>
 						<Button
 							type="submit"
-							className="mt-6 bg-yellow-800 text-white text-lg"
+							className="mt-6 bg-yellow-800 text-black text-lg"
 							fullWidth
 						>
 							Register
 						</Button>
+						{isLoading && <Loader />}
 					</form>
 					<Typography color="gray" className="mt-4 text-center font-normal">
 						Already have an account?{" "}
