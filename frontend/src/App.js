@@ -13,6 +13,7 @@ const HomeScreen = lazy(() => import("./screens/HomeScreen"));
 const LoginScreen = lazy(() => import("./screens/LoginScreen"));
 const RegisterScreen = lazy(() => import("./screens/RegisterScreen"));
 const ProductScreen = lazy(() => import("./screens/ProductScreen"));
+const ProfileScreen = lazy(() => import("./screens/ProfileScreen"));
 
 function App() {
 	return (
@@ -24,6 +25,7 @@ function App() {
 				<Route path="/login" element={<LoginScreen />} />
 				<Route path="/register" element={<RegisterScreen />} />
 				<Route path="/product/:productId" element={<ProductScreen />} />
+				<Route path="/profile" element={<ProfileScreen />} />
 			</Routes>
 			<Footer />
 		</Suspense>

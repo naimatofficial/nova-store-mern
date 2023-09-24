@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { Alert, Button, Rating, Typography } from "@material-tailwind/react";
@@ -7,11 +7,21 @@ import Loader from "../Loader";
 import ProductList from "./ProductList";
 
 import { useGetProductsQuery } from "../../redux/slices/productsApiSlice";
+import { addViewedProduct } from "../../redux/slices/recentlyViewedSlice";
+import { useDispatch } from "react-redux";
 
 const ProductDetails = ({ product }) => {
 	const { data, isLoading, error } = useGetProductsQuery({
 		category: product.category,
 	});
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (product) {
+			dispatch(addViewedProduct(product._id));
+		}
+	}, [dispatch, product]);
 
 	let filteredProducts;
 	if (data && data.doc && product._id) {

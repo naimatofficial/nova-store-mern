@@ -3,6 +3,7 @@ import { Alert } from "@material-tailwind/react";
 import { useGetProductsQuery } from "../redux/slices/productsApiSlice";
 import ProductList from "../components/product/ProductList";
 import Loader from "../components/Loader";
+import RecentlyViewedProducts from "../components/product/RecentlyViewedProducts";
 
 const HomeScreen = () => {
 	const { data, isLoading, isError, error } = useGetProductsQuery({});
@@ -20,6 +21,7 @@ const HomeScreen = () => {
 		return (
 			<div>
 				<ProductList products={data.doc} />
+				<RecentlyViewedProducts />
 			</div>
 		);
 	} else {
