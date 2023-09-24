@@ -83,7 +83,7 @@ const LoginScreen = () => {
 						<Button
 							type="submit"
 							fullWidth
-							className="bg-yellow-800 text-black text-lg mt-6"
+							className="bg-yellow-600 text-black text-lg mt-6"
 						>
 							Login
 						</Button>

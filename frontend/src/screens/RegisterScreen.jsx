@@ -12,6 +12,7 @@ import { useRegisterMutation } from "./../redux/slices/usersApiSlice";
 import { toast } from "react-toastify";
 import { setCredentials } from "../redux/slices/authSlice";
 import Loader from "../components/Loader";
+import { FaInfoCircle } from "react-icons/fa";
 
 const RegisterScreen = () => {
 	const [name, setName] = useState("");
@@ -84,14 +85,22 @@ const RegisterScreen = () => {
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 							/>
-							<Input
-								type="password"
-								size="lg"
-								label="Password"
-								name="password"
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
-							/>
+							<div>
+								<Input
+									type="password"
+									size="lg"
+									label="Password"
+									name="password"
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
+								/>
+								<div className="flex items-center gap-2 mt-1">
+									<FaInfoCircle className="text-blue-600" />
+									<span className="text-xs">
+										Passwords must be at least 6 characters.
+									</span>
+								</div>
+							</div>
 						</div>
 						<Checkbox
 							label={
@@ -113,7 +122,7 @@ const RegisterScreen = () => {
 						/>
 						<Button
 							type="submit"
-							className="mt-6 bg-yellow-800 text-black text-lg"
+							className="mt-6 bg-yellow-600 text-black text-lg"
 							fullWidth
 						>
 							Register
