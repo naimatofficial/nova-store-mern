@@ -15,14 +15,26 @@ const recentlyViewedSlice = createSlice({
 	initialState: loadRecentlyViewedFromLocalStorage(),
 	reducers: {
 		addViewedProduct: (state, action) => {
-			if (!state.includes(action.payload)) {
-				state.push(action.payload);
-				saveRecentlyViewedToLocalStorage(state);
+			const productId = action.payload;
+			const timestamp = Date.now();
+			const existingProductIndex = state.findIndex(
+				(product) => product.id === productId
+			);
+
+			if (existingProductIndex !== -1) {
+				// If the product is already in the list, update its timestamp
+				state[existingProductIndex].timestamp = timestamp;
+			} else {
+				// Otherwise, add the product with a new timestamp
+				state.unshift({ id: productId, timestamp });
 			}
-		},
-		clearViewedProducts: (state) => {
-			state = [];
+
+			// Save the updated list to local storage
 			saveRecentlyViewedToLocalStorage(state);
+		},
+		clearViewedProducts: () => {
+			localStorage.removeItem("recentlyViewed");
+			return [];
 		},
 	},
 });
@@ -30,3 +42,8 @@ const recentlyViewedSlice = createSlice({
 export const { addViewedProduct, clearViewedProducts } =
 	recentlyViewedSlice.actions;
 export default recentlyViewedSlice.reducer;
+
+// if (!state.includes(action.payload)) {
+// 	state.push(action.payload);
+// 	saveRecentlyViewedToLocalStorage(state);
+// }
