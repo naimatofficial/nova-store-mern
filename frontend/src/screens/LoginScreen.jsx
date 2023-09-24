@@ -50,7 +50,7 @@ const LoginScreen = () => {
 				height={200}
 				className="mx-auto mt-4 p-4"
 			/>
-			<div className="w-fit mx-auto mt-4 p-8 bg-white shadow-lg rounded-lg ">
+			<div className="w-fit mx-auto mt-4 p-8 bg-white shadow-lg rounded-xl">
 				<Card color="transparent" shadow={false}>
 					<Typography variant="h4" color="blue-gray">
 						Login

@@ -58,7 +58,7 @@ const RegisterScreen = () => {
 				height={200}
 				className="mx-auto mt-4 p-4"
 			/>
-			<div className="w-fit mx-auto mt-4 p-8 bg-white shadow-lg rounded-md ">
+			<div className="w-fit mx-auto mt-4 p-8 bg-white shadow-lg rounded-xl">
 				<Card color="transparent" shadow={false}>
 					<Typography variant="h4" color="blue-gray">
 						Sign Up
@@ -97,7 +97,7 @@ const RegisterScreen = () => {
 								<div className="flex items-center gap-2 mt-1">
 									<FaInfoCircle className="text-blue-600" />
 									<span className="text-xs">
-										Passwords must be at least 6 characters.
+										Password must be at least 6 characters.
 									</span>
 								</div>
 							</div>
