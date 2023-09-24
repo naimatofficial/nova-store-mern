@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Loader from "./components/Loader";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Footer } from "./components/Footer";
 
 // ** COMPONENTS ** //
 const Header = lazy(() => import("./components/header/Header"));
@@ -16,6 +17,7 @@ const ProductScreen = lazy(() => import("./screens/ProductScreen"));
 function App() {
 	return (
 		<Suspense fallback={<Loader />}>
+			<ToastContainer />
 			<Header />
 			<Routes>
 				<Route path="/" element={<HomeScreen />} />
@@ -23,7 +25,7 @@ function App() {
 				<Route path="/register" element={<RegisterScreen />} />
 				<Route path="/product/:productId" element={<ProductScreen />} />
 			</Routes>
-			<ToastContainer />
+			<Footer />
 		</Suspense>
 	);
 }
