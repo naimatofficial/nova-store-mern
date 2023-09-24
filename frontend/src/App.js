@@ -1,6 +1,8 @@
 import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import Loader from "./components/Loader";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // ** COMPONENTS ** //
 const Header = lazy(() => import("./components/header/Header"));
@@ -21,6 +23,7 @@ function App() {
 				<Route path="/register" element={<RegisterScreen />} />
 				<Route path="/product/:productId" element={<ProductScreen />} />
 			</Routes>
+			<ToastContainer />
 		</Suspense>
 	);
 }
