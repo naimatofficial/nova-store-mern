@@ -10,6 +10,8 @@ const saveRecentlyViewedToLocalStorage = (data) => {
 	localStorage.setItem("recentlyViewed", JSON.stringify(data));
 };
 
+const MAX_RECENTLY_VIEWED = 5;
+
 const recentlyViewedSlice = createSlice({
 	name: "recentlyViewed",
 	initialState: loadRecentlyViewedFromLocalStorage(),
@@ -25,7 +27,11 @@ const recentlyViewedSlice = createSlice({
 				// If the product is already in the list, update its timestamp
 				state[existingProductIndex].timestamp = timestamp;
 			} else {
-				// Otherwise, add the product with a new timestamp
+				// If the limit is reached, remove the oldest product
+				if (state.length >= MAX_RECENTLY_VIEWED) {
+					state.pop(); // Remove the oldest product
+				}
+				// Add the new product with a new timestamp
 				state.unshift({ id: productId, timestamp });
 			}
 
