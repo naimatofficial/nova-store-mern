@@ -43,8 +43,8 @@ const RecentlyViewedProducts = () => {
 
 	console.log(filteredProducts);
 	return (
-		<div>
-			<Typography variant="h3">Recently Viewed Products</Typography>
+		<div className="p-5 mt-5">
+			<Typography variant="h4">Recently Viewed Products</Typography>
 			{filteredProducts && filteredProducts.length > 0 && (
 				<ProductList products={filteredProducts} />
 			)}
