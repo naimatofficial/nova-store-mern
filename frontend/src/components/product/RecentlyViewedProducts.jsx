@@ -39,9 +39,7 @@ const RecentlyViewedProducts = () => {
 	if (isError && error) {
 		return <Alert color="red">{error}</Alert>;
 	}
-	console.log("recent products", recentlyViewed);
 
-	console.log(filteredProducts);
 	return (
 		<div className="p-5 mt-5">
 			<Typography variant="h4">Recently Viewed Products</Typography>
