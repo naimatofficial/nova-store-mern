@@ -42,7 +42,7 @@ const RecentlyViewedProducts = () => {
 
 	return (
 		<div className="p-5 mt-5">
-			<Typography variant="h4">Recently Viewed Products</Typography>
+			<Typography variant="h4">Recently viewed products</Typography>
 			{filteredProducts && filteredProducts.length > 0 && (
 				<ProductList products={filteredProducts} />
 			)}

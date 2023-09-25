@@ -3,14 +3,14 @@ import {
 	MenuHandler,
 	MenuList,
 	MenuItem,
-	Avatar,
 	Typography,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/slices/authSlice";
+import Avatar from "./Avatar";
 
-const ProfileMenu = () => {
+const ProfileMenu = ({ user }) => {
 	const dispatch = useDispatch();
 
 	const signOutHandler = () => {
@@ -19,15 +19,20 @@ const ProfileMenu = () => {
 		window.location.reload();
 	};
 
+	console.log("user", user);
+
 	return (
 		<Menu>
 			<MenuHandler>
-				<Avatar
+				{/* <Avatar
 					variant="circular"
 					alt="tania andrew"
 					className="cursor-pointer"
 					src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-				/>
+				/> */}
+				<div className="cursor-pointer">
+					<Avatar username={user.name} />
+				</div>
 			</MenuHandler>
 			<MenuList>
 				<MenuItem>

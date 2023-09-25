@@ -56,9 +56,9 @@ const RegisterScreen = () => {
 				alt="nova store logo"
 				width={200}
 				height={200}
-				className="mx-auto mt-4 p-4"
+				className="mx-auto mt-1 p-2"
 			/>
-			<div className="w-fit mx-auto mt-4 p-8 bg-white shadow-lg rounded-xl">
+			<div className="w-fit mx-auto mt-2 p-8 bg-white shadow-lg rounded-xl">
 				<Card color="transparent" shadow={false}>
 					<Typography variant="h4" color="blue-gray">
 						Sign Up

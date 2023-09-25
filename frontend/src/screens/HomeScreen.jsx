@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert } from "@material-tailwind/react";
+import { Alert, Typography } from "@material-tailwind/react";
 import { useGetProductsQuery } from "../redux/slices/productsApiSlice";
 import ProductList from "../components/product/ProductList";
 import Loader from "../components/Loader";
@@ -21,7 +21,8 @@ const HomeScreen = () => {
 	if (data && Array.isArray(data.doc) && data.doc.length > 0) {
 		console.log(data.doc);
 		return (
-			<div>
+			<div className="p-5 mt-5">
+				<Typography variant="h4">Popular products</Typography>
 				<ProductList products={data.doc} />
 				{recentlyViewed.length > 0 && <RecentlyViewedProducts />}
 			</div>

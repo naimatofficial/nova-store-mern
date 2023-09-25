@@ -5,9 +5,10 @@ import {
 	Button,
 	IconButton,
 	Collapse,
+	Tooltip,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import ProfileMenu from "./ProfileMenu";
 
@@ -48,8 +49,8 @@ export default function Header() {
 	);
 
 	return (
-		<div className="">
-			<Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
+		<div className="mb-24">
+			<Navbar className="fixed top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
 				<div className="flex items-center justify-between text-blue-gray-900">
 					<Link to="/">
 						<img
@@ -63,7 +64,7 @@ export default function Header() {
 					<div className="flex items-center gap-4">
 						<div className="mr-4 hidden lg:block">{navList}</div>
 						{userInfo ? (
-							<ProfileMenu />
+							<ProfileMenu user={userInfo.user} />
 						) : (
 							<>
 								<Button variant="outlined" size="sm" className="">
@@ -74,9 +75,30 @@ export default function Header() {
 								</Button>
 							</>
 						)}
-						<div>
-							<FaShoppingCart className="text-lg" />
-						</div>
+						<Tooltip
+							content="Favorites"
+							animate={{
+								mount: { scale: 1, y: 0 },
+								unmount: { scale: 0, y: 25 },
+							}}
+							className="bg-orange-500 text-white"
+						>
+							<button className="bg-gray-200 p-3 rounded-full hover:bg-gray-300 transition-all ease-in">
+								<FaHeart className="text-2xl text-pink-500" />
+							</button>
+						</Tooltip>
+						<Tooltip
+							content="Cart"
+							animate={{
+								mount: { scale: 1, y: 0 },
+								unmount: { scale: 0, y: 25 },
+							}}
+							className="bg-orange-500 text-white"
+						>
+							<button className="bg-gray-200 p-3 rounded-full hover:bg-gray-300 transition-all ease-in">
+								<FaShoppingCart className="text-2xl" />
+							</button>
+						</Tooltip>
 						<IconButton
 							variant="text"
 							className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
