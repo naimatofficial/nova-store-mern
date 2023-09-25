@@ -4,9 +4,11 @@ import { useGetProductsQuery } from "../redux/slices/productsApiSlice";
 import ProductList from "../components/product/ProductList";
 import Loader from "../components/Loader";
 import RecentlyViewedProducts from "../components/product/RecentlyViewedProducts";
+import { useSelector } from "react-redux";
 
 const HomeScreen = () => {
 	const { data, isLoading, isError, error } = useGetProductsQuery({});
+	const recentlyViewed = useSelector((state) => state.recentlyViewed);
 
 	if (isLoading) {
 		return <Loader />;
@@ -21,7 +23,7 @@ const HomeScreen = () => {
 		return (
 			<div>
 				<ProductList products={data.doc} />
-				<RecentlyViewedProducts />
+				{recentlyViewed.length > 0 && <RecentlyViewedProducts />}
 			</div>
 		);
 	} else {

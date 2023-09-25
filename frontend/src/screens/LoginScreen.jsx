@@ -1,4 +1,10 @@
-import { Card, Input, Button, Typography } from "@material-tailwind/react";
+import {
+	Card,
+	Input,
+	Button,
+	Typography,
+	Spinner,
+} from "@material-tailwind/react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -85,9 +91,12 @@ const LoginScreen = () => {
 							fullWidth
 							className="bg-yellow-600 text-black text-lg mt-6"
 						>
-							Login
+							{isLoading ? (
+								<Spinner color="black" className="mx-auto" />
+							) : (
+								"login"
+							)}
 						</Button>
-						{isLoading && <Loader />}
 					</form>
 					<Typography color="gray" className="mt-4 text-center font-normal">
 						New to Nova Store?

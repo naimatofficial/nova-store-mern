@@ -6,11 +6,22 @@ import {
 	Avatar,
 	Typography,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/slices/authSlice";
 
 const ProfileMenu = () => {
-	const logoutHandler = () => {
-		console.log("logout");
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	const { search } = useLocation();
+	const sp = new URLSearchParams(search);
+	const redirect = sp.get("redirect") || "/";
+
+	const signOutHandler = () => {
+		dispatch(logout());
+		// Perform a hard refresh to re-render the entire page
+		window.location.reload();
 	};
 
 	return (
@@ -73,7 +84,7 @@ const ProfileMenu = () => {
 				</MenuItem>
 
 				<hr className="my-2 border-blue-gray-50" />
-				<MenuItem className="flex items-center gap-2" onClick={logoutHandler}>
+				<MenuItem className="flex items-center gap-2" onClick={signOutHandler}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
