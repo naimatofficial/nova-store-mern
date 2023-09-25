@@ -6,7 +6,7 @@ import {
 	Avatar,
 	Typography,
 } from "@material-tailwind/react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/slices/authSlice";
 
