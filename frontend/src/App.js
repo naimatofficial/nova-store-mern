@@ -17,6 +17,7 @@ const ProfileScreen = lazy(() => import("./screens/ProfileScreen"));
 
 function App() {
 	const { pathname } = useLocation();
+
 	return (
 		<Suspense fallback={<Loader />}>
 			<ToastContainer />

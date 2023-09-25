@@ -1,4 +1,5 @@
 import { Typography } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 const LINKS = [
 	{
@@ -19,15 +20,17 @@ const currentYear = new Date().getFullYear();
 
 export function Footer() {
 	return (
-		<footer className="relative w-full bg-white p-5 mt-7">
+		<footer className="relative w-full p-5 mt-7 bg-white">
 			<div className="mx-auto w-full max-w-7xl px-8">
 				<div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
-					<img
-						src="/images/brand/nova-logo.png"
-						alt="nova logo"
-						width={100}
-						height={100}
-					/>
+					<Link to="/">
+						<img
+							src="/images/brand/nova-logo.png"
+							alt="nova logo"
+							width={100}
+							height={100}
+						/>
+					</Link>
 					<div className="grid grid-cols-3 justify-between gap-4">
 						{LINKS.map(({ title, items }) => (
 							<ul key={title}>
