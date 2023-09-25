@@ -12,11 +12,6 @@ import { logout } from "../../redux/slices/authSlice";
 
 const ProfileMenu = () => {
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
-
-	const { search } = useLocation();
-	const sp = new URLSearchParams(search);
-	const redirect = sp.get("redirect") || "/";
 
 	const signOutHandler = () => {
 		dispatch(logout());
