@@ -52,7 +52,7 @@ const ProductDetails = ({ product }) => {
 			<div className="flex flex-wrap justify-between items-start gap-5 w-4/5 p-4 mt-4 mb-5 mx-auto">
 				<div>
 					<img
-						className=" h-2/4 w-full rounded-lg object-cover object-center"
+						className=" h-2/4 w-full rounded-lg object-cover object-center shadow-md"
 						src={product.image}
 						alt={product.name}
 					/>
@@ -98,7 +98,12 @@ const ProductDetails = ({ product }) => {
 						Free Shipping
 					</Typography>
 
-					<Button className="bg-orange-500 text-gray-900 text-lg">
+					<Link to="/cart">
+						<Button className="bg-orange-600 text-white text-lg w-full">
+							Buy Now
+						</Button>
+					</Link>
+					<Button variant="outlined" className="text-lg">
 						Add to Cart
 					</Button>
 				</div>

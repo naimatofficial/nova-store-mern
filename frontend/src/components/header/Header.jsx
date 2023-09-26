@@ -24,27 +24,21 @@ export default function Header() {
 	}, []);
 
 	const navList = (
-		<ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-			<Typography
-				as="li"
-				variant="small"
-				color="blue-gray"
-				className="p-1 font-normal"
-			>
-				<Link to="/category/laptops" className="flex items-center">
-					Laptops
+		<ul className="mb-4 mt-2 flex flex-col gap-1 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-2">
+			<li>
+				<Link to="/category/laptops">
+					<Button variant="text" className="rounded-full">
+						Laptops
+					</Button>
 				</Link>
-			</Typography>
-			<Typography
-				as="li"
-				variant="small"
-				color="blue-gray"
-				className="p-1 font-normal"
-			>
-				<Link to="/category/mobiles" className="flex items-center">
-					Mobiles
+			</li>
+			<li>
+				<Link to="/category/mobiles">
+					<Button variant="text" className="rounded-full">
+						Mobiles
+					</Button>
 				</Link>
-			</Typography>
+			</li>
 		</ul>
 	);
 
@@ -67,12 +61,16 @@ export default function Header() {
 							<ProfileMenu user={userInfo.user} />
 						) : (
 							<>
-								<Button variant="outlined" size="sm" className="">
-									<Link to="/login">Login</Link>
-								</Button>
-								<Button variant="gradient" size="sm" className="">
-									<Link to="/register">Register</Link>
-								</Button>
+								<Link to="/login">
+									<Button variant="outlined" size="sm" className="rounded-full">
+										Login
+									</Button>
+								</Link>
+								<Link to="/register">
+									<Button variant="gradient" size="sm" className="rounded-full">
+										Register
+									</Button>
+								</Link>
 							</>
 						)}
 						<Tooltip
