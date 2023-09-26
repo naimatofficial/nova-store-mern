@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaArrowLeft, FaHeart, FaMinus, FaPlus } from "react-icons/fa";
+import { FaArrowLeft, FaHeart } from "react-icons/fa";
 import { Alert, Button, Rating, Typography } from "@material-tailwind/react";
 
 import Loader from "../Loader";
@@ -9,6 +9,7 @@ import ProductList from "./ProductList";
 import { useGetProductsQuery } from "../../redux/slices/productsApiSlice";
 import { addViewedProduct } from "../../redux/slices/recentlyViewedSlice";
 import { useDispatch } from "react-redux";
+import Quantity from "./Quantity";
 
 const ProductDetails = ({ product }) => {
 	const { data, isLoading, error } = useGetProductsQuery({
@@ -101,14 +102,14 @@ const ProductDetails = ({ product }) => {
 							</Typography>
 						</div>
 						<div className="flex flex-col gap-3">
-							{product.countInStock > 0 ? (
+							{product.countInStock > 1 ? (
 								<Typography
 									variant="paragraph"
 									className="font-bold text-green-700 text-lg"
 								>
 									In Stock
 								</Typography>
-							) : (
+							) : product.countInStock === 1 ? null : (
 								<Typography
 									variant="paragraph"
 									className="font-bold text-deep-orange-700 text-lg"
@@ -119,29 +120,28 @@ const ProductDetails = ({ product }) => {
 							<Typography className="font-bold text-lg text-blue-500">
 								Free Shipping
 							</Typography>
-							<div className="flex items-center">
-								<button
-									onClick={decreaseQuantity}
-									className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none"
-								>
-									<FaMinus />
-								</button>
-								<input
-									type="number"
-									value={quantity}
-									readOnly
-									className="w-16 p-2 text-center border border-gray-300 rounded-md mx-2 focus:outline-none"
-								/>
-								<button
-									onClick={increaseQuantity}
-									className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none"
-								>
-									<FaPlus />
-								</button>
+
+							<div>
+								{product.countInStock === 1 ? (
+									<Typography
+										variant="paragraph"
+										className=" text-amber-900 font-bold"
+									>
+										Only 1 left in stock - order soon
+									</Typography>
+								) : product.countInStock > 1 ? (
+									<>
+										<Quantity
+											quantity={quantity}
+											increaseQuantity={increaseQuantity}
+											decreaseQuantity={decreaseQuantity}
+										/>
+										<span className="mx-3 px-1">
+											{product.countInStock} pieces left
+										</span>
+									</>
+								) : null}
 							</div>
-							<span className="mx-3 px-1">
-								{product.countInStock} pieces left
-							</span>
 						</div>
 					</div>
 
