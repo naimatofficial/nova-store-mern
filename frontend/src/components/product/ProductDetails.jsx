@@ -1,13 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaArrowLeft, FaHeart } from "react-icons/fa";
-import {
-	Alert,
-	Button,
-	Chip,
-	Rating,
-	Typography,
-} from "@material-tailwind/react";
+import { FaArrowLeft, FaHeart, FaMinus, FaPlus } from "react-icons/fa";
+import { Alert, Button, Rating, Typography } from "@material-tailwind/react";
 
 import Loader from "../Loader";
 import ProductList from "./ProductList";
@@ -20,12 +14,26 @@ const ProductDetails = ({ product }) => {
 	const { data, isLoading, error } = useGetProductsQuery({
 		category: product.category,
 	});
-
 	const dispatch = useDispatch();
+
+	const [quantity, setQuantity] = useState(1);
+
+	const increaseQuantity = () => {
+		if (quantity < product.countInStock) {
+			setQuantity(quantity + 1);
+		}
+	};
+
+	const decreaseQuantity = () => {
+		if (quantity > 1) {
+			setQuantity(quantity - 1);
+		}
+	};
 
 	useEffect(() => {
 		if (product) {
 			dispatch(addViewedProduct(product._id));
+			setQuantity(1);
 		}
 	}, [dispatch, product]);
 
@@ -77,45 +85,76 @@ const ProductDetails = ({ product }) => {
 						</span>
 					</div>
 					<Typography variant="paragraph">{product.description}</Typography>
-					<Typography variant="paragraph">
-						<span className="text-gray-700 mr-2">Brand:</span>
-						<span>{product.brand}</span>
-					</Typography>
-					<Typography variant="paragraph">
-						<span className="text-gray-700 mr-2">Category:</span>
-						<span>{product.category}</span>
-					</Typography>
-					<Typography variant="paragraph">
-						<span className="text-gray-700 mr-2">Price:</span>
-						<span className="font-bold text-lg">${product.price}</span>
-					</Typography>
-					{product.countInStock > 0 ? (
-						<Typography
-							variant="paragraph"
-							className="font-bold text-green-700 text-lg"
-						>
-							In Stock
-						</Typography>
-					) : (
-						<Typography
-							variant="paragraph"
-							className="font-bold text-deep-orange-700 text-lg"
-						>
-							Out Stock
-						</Typography>
-					)}
-					<Typography className="font-bold text-lg text-blue-500">
-						Free Shipping
-					</Typography>
+					<div className="flex justify-between">
+						<div className="flex flex-col gap-3">
+							<Typography variant="paragraph">
+								<span className="text-gray-700 mr-2">Brand:</span>
+								<span>{product.brand}</span>
+							</Typography>
+							<Typography variant="paragraph">
+								<span className="text-gray-700 mr-2">Category:</span>
+								<span>{product.category}</span>
+							</Typography>
+							<Typography variant="paragraph">
+								<span className="text-gray-700 mr-2">Price:</span>
+								<span className="font-bold text-2xl">${product.price}</span>
+							</Typography>
+						</div>
+						<div className="flex flex-col gap-3">
+							{product.countInStock > 0 ? (
+								<Typography
+									variant="paragraph"
+									className="font-bold text-green-700 text-lg"
+								>
+									In Stock
+								</Typography>
+							) : (
+								<Typography
+									variant="paragraph"
+									className="font-bold text-deep-orange-700 text-lg"
+								>
+									Out Stock
+								</Typography>
+							)}
+							<Typography className="font-bold text-lg text-blue-500">
+								Free Shipping
+							</Typography>
+							<div className="flex items-center">
+								<button
+									onClick={decreaseQuantity}
+									className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none"
+								>
+									<FaMinus />
+								</button>
+								<input
+									type="number"
+									value={quantity}
+									readOnly
+									className="w-16 p-2 text-center border border-gray-300 rounded-md mx-2 focus:outline-none"
+								/>
+								<button
+									onClick={increaseQuantity}
+									className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none"
+								>
+									<FaPlus />
+								</button>
+							</div>
+							<span className="mx-3 px-1">
+								{product.countInStock} pieces left
+							</span>
+						</div>
+					</div>
 
 					<Link to="/cart">
-						<Button className="bg-orange-600 text-white text-sm w-full hover:shadow-orange-100">
+						<Button className="bg-yellow-700 text-black text-sm w-full hover:shadow-yellow-100 rounded-full">
 							Buy Now
 						</Button>
 					</Link>
 					<div className="flex justify-between gap-2">
-						<Button className="text-sm flex-grow">Add to Cart</Button>
-						<Button className="text-sm flex justify-center items-center gap-3 bg-pink-500 text-white hover:shadow-pink-100">
+						<Button className="text-sm flex-grow  rounded-full">
+							Add to Cart
+						</Button>
+						<Button className="text-sm flex justify-center items-center gap-3 bg-pink-500 text-white hover:shadow-pink-100 rounded-full">
 							Add to Favorite
 							<FaHeart className="" />
 						</Button>

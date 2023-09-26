@@ -78,7 +78,7 @@ export default function Header() {
 								mount: { scale: 1, y: 0 },
 								unmount: { scale: 0, y: 25 },
 							}}
-							className="bg-orange-500 text-white"
+							className="bg-gray-300 text-black"
 						>
 							<button className="bg-gray-200 p-3 rounded-full hover:bg-gray-300 transition-all ease-in">
 								<FaHeart className="text-2xl text-pink-500" />
@@ -90,7 +90,7 @@ export default function Header() {
 								mount: { scale: 1, y: 0 },
 								unmount: { scale: 0, y: 25 },
 							}}
-							className="bg-orange-500 text-white"
+							className="bg-gray-300 text-black"
 						>
 							<button className="bg-gray-200 p-3 rounded-full hover:bg-gray-300 transition-all ease-in">
 								<FaShoppingCart className="text-2xl" />
