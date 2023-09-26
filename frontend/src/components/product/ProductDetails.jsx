@@ -1,7 +1,13 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaArrowLeft } from "react-icons/fa";
-import { Alert, Button, Rating, Typography } from "@material-tailwind/react";
+import { FaArrowLeft, FaHeart } from "react-icons/fa";
+import {
+	Alert,
+	Button,
+	Chip,
+	Rating,
+	Typography,
+} from "@material-tailwind/react";
 
 import Loader from "../Loader";
 import ProductList from "./ProductList";
@@ -40,7 +46,7 @@ const ProductDetails = ({ product }) => {
 
 	return (
 		<>
-			<div className="text-left p-4 mt-3 ml-5">
+			<div className="text-left p-2 mt-2 ml-5">
 				<Link
 					to="/"
 					className="hover:underline text-gray-900 hover:text-blue-700 text-lg flex items-center gap-1"
@@ -49,16 +55,20 @@ const ProductDetails = ({ product }) => {
 					<span>Go back</span>
 				</Link>
 			</div>
-			<div className="flex flex-wrap justify-between items-start gap-5 w-4/5 p-4 mt-4 mb-5 mx-auto">
+			<div className="flex flex-wrap justify-between items-start gap-4 w-4/5 p-2 mt-2 mb-5 mx-auto ">
+				{/* Product Image */}
 				<div>
 					<img
-						className=" h-2/4 w-full rounded-lg object-cover object-center shadow-md"
+						className="h-2/4 w-full rounded-lg object-cover object-center shadow-md"
 						src={product.image}
 						alt={product.name}
 					/>
 				</div>
+
+				{/* Product Details */}
 				<div className="flex flex-col justify-start gap-3 lg:w-2/5 md:w-full text-left">
 					<Typography variant="h3">{product.name}</Typography>
+
 					<div className="flex items-center gap-2">
 						<span className="font-medium">{productRating}</span>
 						<Rating value={Math.round(product.rating)} readonly />
@@ -99,13 +109,17 @@ const ProductDetails = ({ product }) => {
 					</Typography>
 
 					<Link to="/cart">
-						<Button className="bg-orange-600 text-white text-lg w-full">
+						<Button className="bg-orange-600 text-white text-sm w-full hover:shadow-orange-100">
 							Buy Now
 						</Button>
 					</Link>
-					<Button variant="outlined" className="text-lg">
-						Add to Cart
-					</Button>
+					<div className="flex justify-between gap-2">
+						<Button className="text-sm flex-grow">Add to Cart</Button>
+						<Button className="text-sm flex justify-center items-center gap-3 bg-pink-500 text-white hover:shadow-pink-100">
+							Add to Favorite
+							<FaHeart className="" />
+						</Button>
+					</div>
 				</div>
 			</div>
 
