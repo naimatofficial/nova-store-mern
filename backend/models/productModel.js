@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 
 const reviewSchema = mongoose.Schema(
 	{
@@ -27,6 +27,7 @@ const productSchema = mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		slug: String,
 		image: {
 			type: String,
 			required: true,
@@ -57,7 +58,7 @@ const productSchema = mongoose.Schema(
 		},
 		price: {
 			type: Number,
-			required: true,
+			required: [true, "A product must have a price"],
 			default: 0,
 		},
 		countInStock: {
@@ -65,12 +66,17 @@ const productSchema = mongoose.Schema(
 			required: true,
 			default: 0,
 		},
-		slug: String,
 	},
 	{
 		timestamps: true,
 	}
 );
+
+productSchema.pre("save", function (next) {
+	this.slug = slugify(this.name, { lower: true });
+	console.log(this.slug);
+	next();
+});
 
 const Product = mongoose.model("Product", productSchema);
 

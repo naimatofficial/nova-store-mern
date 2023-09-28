@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import ProfileMenu from "./ProfileMenu";
+import Cart from "./Cart";
 
 export default function Header() {
 	const [openNav, setOpenNav] = React.useState(false);
@@ -92,9 +93,7 @@ export default function Header() {
 							}}
 							className="bg-gray-300 text-black"
 						>
-							<button className="bg-gray-200 p-3 rounded-full hover:bg-gray-300 transition-all ease-in">
-								<FaShoppingCart className="text-2xl" />
-							</button>
+							<Cart />
 						</Tooltip>
 						<IconButton
 							variant="text"

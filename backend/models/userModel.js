@@ -3,37 +3,42 @@ import validator from "validator";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 
-const userSchema = new mongoose.Schema({
-	name: {
-		type: String,
-		required: [true, "Please tell us your name."],
+const userSchema = new mongoose.Schema(
+	{
+		name: {
+			type: String,
+			required: [true, "Please tell us your name."],
+		},
+		email: {
+			type: String,
+			required: [true, "Please provide your email address."],
+			unique: true,
+			lowercase: true,
+			validate: [validator.isEmail, "Please provide a valid email address."],
+		},
+		role: {
+			type: String,
+			enum: ["admin", "user"],
+			default: "user",
+		},
+		password: {
+			type: String,
+			required: [true, "Please provide a password."],
+			minlength: 8,
+			select: false,
+		},
+		passwordChangedAt: Date,
+		passwordResetToken: String,
+		passwordResetExpires: Date,
+		active: {
+			type: Boolean,
+			default: true,
+		},
 	},
-	email: {
-		type: String,
-		required: [true, "Please provide your email address."],
-		unique: true,
-		lowercase: true,
-		validate: [validator.isEmail, "Please provide a valid email address."],
-	},
-	role: {
-		type: String,
-		enum: ["admin", "user"],
-		default: "user",
-	},
-	password: {
-		type: String,
-		required: [true, "Please provide a password."],
-		minlength: 8,
-		select: false,
-	},
-	passwordChangedAt: Date,
-	passwordResetToken: String,
-	passwordResetExpires: Date,
-	active: {
-		type: Boolean,
-		default: true,
-	},
-});
+	{
+		timestamps: true,
+	}
+);
 
 userSchema.methods.correctPassword = async function (
 	candidatePassword,
