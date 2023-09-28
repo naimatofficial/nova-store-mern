@@ -14,7 +14,7 @@ const StyledBadge = styled(Badge)(() => ({
 	},
 }));
 
-export default function Cart() {
+export default function CartIcon() {
 	return (
 		<IconButton aria-label="cart">
 			<StyledBadge badgeContent={4} color="error">

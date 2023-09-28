@@ -1,4 +1,7 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
 import {
 	Navbar,
 	Button,
@@ -6,11 +9,10 @@ import {
 	Collapse,
 	Tooltip,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { FaHeart } from "react-icons/fa";
+
 import ProfileMenu from "./ProfileMenu";
-import Cart from "./Cart";
+import CartIcon from "./CartIcon";
 
 export default function Header() {
 	const [openNav, setOpenNav] = React.useState(false);
@@ -93,7 +95,7 @@ export default function Header() {
 							}}
 							className="bg-gray-300 text-black"
 						>
-							<Cart />
+							<CartIcon />
 						</Tooltip>
 						<IconButton
 							variant="text"
