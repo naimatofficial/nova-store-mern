@@ -18,6 +18,12 @@ const ProductDetails = ({ product }) => {
 	const dispatch = useDispatch();
 
 	const [quantity, setQuantity] = useState(1);
+	const [favorite, setFavorite] = useState(0);
+
+	const isFavorite = favorite === 1;
+	const buttonStyle = isFavorite
+		? "bg-pink-500 text-white"
+		: "bg-gray-100 text-black ";
 
 	const increaseQuantity = () => {
 		if (quantity < product.countInStock) {
@@ -51,11 +57,15 @@ const ProductDetails = ({ product }) => {
 		return <Alert color="red">{error}</Alert>;
 	}
 
+	const addFavoriteHandler = () => {
+		setFavorite(isFavorite ? 0 : 1);
+	};
+
 	const productRating = (Math.round(product.rating * 10) / 10).toFixed(1);
 
 	return (
 		<>
-			<div className="text-left p-2 mt-2 ml-5">
+			<div className="text-left p-2 mt-2 ml-5 ">
 				<Link
 					to="/"
 					className="hover:underline text-gray-900 hover:text-blue-700 text-lg flex items-center gap-1"
@@ -64,7 +74,7 @@ const ProductDetails = ({ product }) => {
 					<span>Go back</span>
 				</Link>
 			</div>
-			<div className="flex flex-wrap justify-between items-start gap-4 w-4/5 p-2 mt-2 mb-5 mx-auto ">
+			<div className="flex flex-wrap justify-between items-start gap-4 w-4/5 p-2 mt-2 mb-5 mx-auto">
 				{/* Product Image */}
 				<div>
 					<img
@@ -146,7 +156,7 @@ const ProductDetails = ({ product }) => {
 					</div>
 
 					<Link to="/cart">
-						<Button className="bg-yellow-700 text-black text-sm w-full hover:shadow-yellow-100 rounded-full">
+						<Button className="bg-yellow-700 text-black text-sm w-full rounded-full">
 							Buy Now
 						</Button>
 					</Link>
@@ -154,10 +164,15 @@ const ProductDetails = ({ product }) => {
 						<Button className="text-sm flex-grow  rounded-full">
 							Add to Cart
 						</Button>
-						<Button className="text-sm flex justify-center items-center gap-3 bg-pink-500 text-white hover:shadow-pink-100 rounded-full">
-							Add to Favorite
-							<FaHeart className="" />
-						</Button>
+						<button
+							className={`align-middle flex justify-center items-center gap-3 select-none font-sans font-bold text-center uppercase
+							transition-all py-3 px-6 shadow-md shadow-gray-900/10 hover:shadow-lghover:shadow-gray-900/20
+							text-sm flex-grow rounded-full ${buttonStyle}`}
+							onClick={addFavoriteHandler}
+						>
+							<span>Add to Favorite</span>
+							<FaHeart fontSize={25} />
+						</button>
 					</div>
 				</div>
 			</div>
