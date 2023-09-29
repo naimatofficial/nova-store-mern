@@ -8,10 +8,10 @@ import {
 } from "./../controllers/userController.js";
 import {
 	login,
-	protect,
-	restrictTo,
 	signup,
 } from "../controllers/authController.js";
+import protect from "../middleware/protect.js";
+import restrictTo from "../middleware/restrict.js";
 
 const router = express.Router();
 

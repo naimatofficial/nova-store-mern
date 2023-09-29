@@ -8,8 +8,8 @@ import {
 	updateOrderToDelivered,
 	getOrders,
 } from "../controllers/orderController.js";
-import { protect, restrictTo } from "../controllers/authController.js";
-import { restrictTo } from "../controllers/authController.js";
+import restrictTo from "./../middleware/restrict";
+import protect from "./../middleware/protect";
 
 router
 	.route("/")

@@ -8,8 +8,12 @@ import ProductList from "./ProductList";
 
 import { useGetProductsQuery } from "../../redux/slices/productsApiSlice";
 import { addViewedProduct } from "../../redux/slices/recentlyViewedSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Quantity from "./Quantity";
+import {
+	addToFavorites,
+	removeFromFavorites,
+} from "../../redux/slices/favoriteProductsSlice";
 
 const ProductDetails = ({ product }) => {
 	const { data, isLoading, error } = useGetProductsQuery({
@@ -59,6 +63,12 @@ const ProductDetails = ({ product }) => {
 
 	const addFavoriteHandler = () => {
 		setFavorite(isFavorite ? 0 : 1);
+		console.log("fav: ", favorite);
+		if (favorite === 0) {
+			dispatch(addToFavorites(product));
+		} else {
+			dispatch(removeFromFavorites(product._id));
+		}
 	};
 
 	const productRating = (Math.round(product.rating * 10) / 10).toFixed(1);
@@ -166,7 +176,7 @@ const ProductDetails = ({ product }) => {
 						</Button>
 						<button
 							className={`align-middle flex justify-center items-center gap-3 select-none font-sans font-bold text-center uppercase
-							transition-all py-3 px-6 shadow-md shadow-gray-900/10 hover:shadow-lghover:shadow-gray-900/20
+							transition-all py-3 shadow-md shadow-gray-900/10 hover:shadow-lghover:shadow-gray-900/20
 							text-sm flex-grow rounded-full ${buttonStyle}`}
 							onClick={addFavoriteHandler}
 						>
