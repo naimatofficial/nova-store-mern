@@ -10,8 +10,7 @@ import {
 	getTopProducts,
 } from "../controllers/productController.js";
 import checkObjectId from "../middleware/checkObjectId.js";
-import restrictTo from "./../middleware/restrict";
-import protect from "../middleware/protect.js";
+import { protect, restrictTo } from "../middleware/authMiddleware.js";
 
 router
 	.route("/")

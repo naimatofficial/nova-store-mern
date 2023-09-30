@@ -1,9 +1,9 @@
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
-import { promisify } from "util";
 import catchAsync from "../utils/catchAsync.js";
 import User from "../models/userModel.js";
 import AppError from "./../utils/appError.js";
+import setRefreshToken from "../services/redisService.js";
 
 const signToken = (id) => {
 	return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -37,18 +37,6 @@ const createSendToken = (user, statusCode, res) => {
 	});
 };
 
-export const signup = catchAsync(async (req, res, next) => {
-	const { name, email, password, passwordConfirm } = req.body;
-
-	const newUser = await User.create({
-		name,
-		email,
-		password,
-	});
-
-	createSendToken(newUser, 201, res);
-});
-
 export const login = catchAsync(async (req, res, next) => {
 	const { email, password } = req.body;
 
@@ -68,9 +56,17 @@ export const login = catchAsync(async (req, res, next) => {
 	createSendToken(user, 200, res);
 });
 
+export const signup = catchAsync(async (req, res, next) => {
+	const { name, email, password, passwordConfirm } = req.body;
 
+	const newUser = await User.create({
+		name,
+		email,
+		password,
+	});
 
-
+	createSendToken(newUser, 201, res);
+});
 
 // exports.forgotPassword = catchAsync(async (req, res, next) => {
 // 	// 1) Get user based on posted email

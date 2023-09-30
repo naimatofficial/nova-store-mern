@@ -1,4 +1,10 @@
- const protect = catchAsync(async (req, res, next) => {
+import User from "./../models/userModel.js";
+
+import { promisify } from "util";
+import AppError from "./../utils/appError.js";
+import catchAsync from "./../utils/catchAsync.js";
+
+export const protect = catchAsync(async (req, res, next) => {
 	// 1) Getting token and check of it's there
 	let token;
 	if (
@@ -41,4 +47,16 @@
 	next();
 });
 
-export default protect; 
+// restrictTo is a Wrapper function to return the middleware function
+export const restrictTo = (...roles) => {
+	return (req, res, next) => {
+		// roles is array: ['admin']
+		if (!roles.includes(req.user.role)) {
+			return next(
+				new AppError("You do not have permission to perform this action.", 403)
+			); // 403: Forbiden
+		}
+
+		next();
+	};
+};

@@ -6,12 +6,8 @@ import {
 	getUsers,
 	updateUser,
 } from "./../controllers/userController.js";
-import {
-	login,
-	signup,
-} from "../controllers/authController.js";
-import protect from "../middleware/protect.js";
-import restrictTo from "../middleware/restrict.js";
+import { login, signup } from "../controllers/authController.js";
+import { protect, restrictTo } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
