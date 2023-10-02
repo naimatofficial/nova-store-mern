@@ -1,40 +1,29 @@
-import User from "../models/User";
-import { sign } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+import { setRefreshToken } from "./redisService.js";
 import {
-	secret,
-	refreshSecret,
 	accessTokenExpiresIn,
+	refreshSecret,
 	refreshTokenExpiresIn,
-} from "../config/jwtConfig";
-import { setRefreshToken } from "./redisService";
+	secret,
+} from "../config/jwtConfig.js";
 
-function generateAccessToken(user) {
-	return sign({ userId: user._id }, secret, {
+function generateAccessToken(userId) {
+	return jwt.sign({ userId }, secret, {
 		expiresIn: accessTokenExpiresIn,
 	});
 }
 
-function generateRefreshToken(user) {
-	const refreshToken = sign({ userId: user._id }, refreshSecret, {
+function generateRefreshToken(userId) {
+	const refreshToken = jwt.sign({ userId }, refreshSecret, {
 		expiresIn: refreshTokenExpiresIn,
 	});
-	setRefreshToken(user._id, refreshToken);
+	setRefreshToken(userId, refreshToken);
 	return refreshToken;
 }
 
-async function login(email, password) {
-	// Implement your login logic (e.g., validating credentials, fetching user from MongoDB)
-	const user = await User.findOne({ email });
-	if (!user) return null;
+export async function loginService(user) {
+	const accessToken = generateAccessToken(user._id);
+	const refreshToken = generateRefreshToken(user._id);
 
-	// Check if the password is valid, then generate tokens
-	const isValidPassword = await user.isValidPassword(password);
-	if (isValidPassword) {
-		const accessToken = generateAccessToken(user);
-		const refreshToken = generateRefreshToken(user);
-		return { accessToken, refreshToken };
-	}
-	return null;
+	return { accessToken, refreshToken };
 }
-
-export default { login };

@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import catchAsync from "../utils/catchAsync.js";
 import User from "../models/userModel.js";
 import AppError from "./../utils/appError.js";
-import setRefreshToken from "../services/redisService.js";
+import { loginService } from "../services/authService.js";
 
 const signToken = (id) => {
 	return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -11,31 +11,31 @@ const signToken = (id) => {
 	});
 };
 
-const createSendToken = (user, statusCode, res) => {
-	const token = signToken(user._id);
+// const createSendToken = (user, statusCode, res) => {
+// 	const token = signToken(user._id);
 
-	// set cookie options
-	const cookieOptions = {
-		expires: new Date(
-			Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-		),
-		httpOnly: true,
-	};
+// 	// set cookie options
+// 	const cookieOptions = {
+// 		expires: new Date(
+// 			Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+// 		),
+// 		httpOnly: true,
+// 	};
 
-	// In production mode: we set to secure = true
-	if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
+// 	// In production mode: we set to secure = true
+// 	if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
-	// do not show the password to client side
-	user.password = undefined;
+// 	// do not show the password to client side
+// 	user.password = undefined;
 
-	res.cookie("jwt", token, cookieOptions);
+// 	res.cookie("jwt", token, cookieOptions);
 
-	res.status(statusCode).json({
-		status: "success",
-		token,
-		user,
-	});
-};
+// 	res.status(statusCode).json({
+// 		status: "success",
+// 		token,
+// 		user,
+// 	});
+// };
 
 export const login = catchAsync(async (req, res, next) => {
 	const { email, password } = req.body;
@@ -52,8 +52,28 @@ export const login = catchAsync(async (req, res, next) => {
 		return next(new AppError("Incorrect email or password", 401));
 	}
 
+	const tokens = await loginService(user);
+
+	console.log("tokens: ", tokens);
+
+	res.status(200).json({
+		status: "success",
+		user,
+	});
+
+	// if (tokens) {
+	// 	res.status(200).json({
+	// 		status: "success",
+	// 		user,
+	// 	});
+	// } else {
+	// 	res.status(401).json({
+	// 		status: "fail",
+	// 	});
+	// }
+
 	// 3) If everything is Ok, then send the response to client
-	createSendToken(user, 200, res);
+	// createSendToken(user, 200, res);
 });
 
 export const signup = catchAsync(async (req, res, next) => {

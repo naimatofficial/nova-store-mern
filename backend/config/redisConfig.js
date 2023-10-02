@@ -1,9 +1,13 @@
-import { createClient } from "redis";
+import Redis from "redis";
+import dotenv from "dotenv";
 
-const redisClient = createClient({
-	host: process.env.REDIS_HOST,
-	port: process.env.REDIS_PORT,
-	// Add other configuration options here if needed
-});
+dotenv.config({ path: "./.env.local" });
+
+const redisClient = Redis.createClient({ url: "redis://127.0.0.1:6379" });
+
+redisClient.on("error", (err) => console.log("Redis Client Error", err));
+
+await redisClient.connect();
+console.log("Redis cache database connected...");
 
 export default redisClient;

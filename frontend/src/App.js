@@ -1,12 +1,12 @@
 import React, { Suspense, lazy } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import Loader from "./components/Loader";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Footer } from "./components/Footer";
 
 // ** COMPONENTS ** //
+import Loader from "./components/Loader";
 const Header = lazy(() => import("./components/header/Header"));
+const Footer = lazy(() => import("./componentsFooter"));
 
 // ** SCREENS OR LAYOUTS ** //
 const HomeScreen = lazy(() => import("./screens/HomeScreen"));
