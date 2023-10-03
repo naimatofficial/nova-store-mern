@@ -13,7 +13,7 @@ function generateAccessToken(userId) {
 	});
 }
 
-function generateRefreshToken(userId) {
+async function generateRefreshToken(userId) {
 	const refreshToken = jwt.sign({ userId }, refreshSecret, {
 		expiresIn: refreshTokenExpiresIn,
 	});
