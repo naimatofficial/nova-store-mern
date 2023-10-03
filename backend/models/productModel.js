@@ -1,4 +1,5 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
+import slugify from "slugify";
 
 const reviewSchema = mongoose.Schema(
 	{

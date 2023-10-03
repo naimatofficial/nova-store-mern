@@ -23,7 +23,8 @@ function generateRefreshToken(userId) {
 
 export async function loginService(user) {
 	const accessToken = generateAccessToken(user._id);
-	const refreshToken = generateRefreshToken(user._id);
+	// Store refreshToken in our Redis Caches
+	generateRefreshToken(user._id);
 
-	return { accessToken, refreshToken };
+	return { accessToken };
 }

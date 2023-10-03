@@ -6,13 +6,14 @@ import {
 	getUsers,
 	updateUser,
 } from "./../controllers/userController.js";
-import { login, signup } from "../controllers/authController.js";
+import { login, signup, logout } from "../controllers/authController.js";
 import { protect, restrictTo } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 router.post("/login", login);
 router.post("/register", signup);
+router.post("/logout", protect, logout);
 
 router.route("/").post(protect, restrictTo("admin"), createUser).get(getUsers);
 

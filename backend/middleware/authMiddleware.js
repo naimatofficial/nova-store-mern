@@ -1,15 +1,19 @@
 import User from "./../models/userModel.js";
+import jwt from "jsonwebtoken";
 
 import { promisify } from "util";
 import AppError from "./../utils/appError.js";
 import catchAsync from "./../utils/catchAsync.js";
+import { getRefreshToken } from "../services/redisService.js";
 
 export const protect = catchAsync(async (req, res, next) => {
 	// 1) Getting token and check of it's there
 	let token;
+
 	if (
 		req.headers.authorization &&
-		req.headers.authorization.startsWith("Bearer")
+		req.headers.authorization.startsWith("Bearer") &&
+		req.cookies.jwt
 	) {
 		token = req.headers.authorization.split(" ")[1];
 	}
@@ -22,9 +26,19 @@ export const protect = catchAsync(async (req, res, next) => {
 
 	// 2) Verification token
 	const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+	const { userId } = decoded;
 
-	// 3) Check if user still exists
-	const currentUser = await User.findById(decoded.id);
+	// 3) Check token in Redis Cache
+	const refreshToken = getRefreshToken(userId);
+
+	if (!refreshToken) {
+		return next(
+			new AppError("Unfortunately, this token has already expired.", 401)
+		);
+	}
+
+	// 4) Check if user still exists
+	const currentUser = await User.findById(userId);
 
 	if (!currentUser) {
 		return next(

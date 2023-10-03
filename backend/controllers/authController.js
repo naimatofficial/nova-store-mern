@@ -1,41 +1,39 @@
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
-import catchAsync from "../utils/catchAsync.js";
+
 import User from "../models/userModel.js";
+import catchAsync from "../utils/catchAsync.js";
 import AppError from "./../utils/appError.js";
+
 import { loginService } from "../services/authService.js";
+import { removeRefreshToken } from "../services/redisService.js";
 
-const signToken = (id) => {
-	return jwt.sign({ id }, process.env.JWT_SECRET, {
-		expiresIn: process.env.JWT_EXPIRES_IN,
+const createSendToken = catchAsync(async (user, statusCode, res) => {
+	// loginService is Redis cache to store the token in cache
+	const { accessToken } = await loginService(user);
+
+	// set cookie options
+	const cookieOptions = {
+		expires: new Date(
+			Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+		),
+		httpOnly: true,
+	};
+
+	// In production mode: we set to secure = true
+	if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
+
+	// do not show the password to client side
+	user.password = undefined;
+
+	res.cookie("jwt", accessToken, cookieOptions);
+
+	res.status(statusCode).json({
+		status: "success",
+		accessToken,
+		user,
 	});
-};
-
-// const createSendToken = (user, statusCode, res) => {
-// 	const token = signToken(user._id);
-
-// 	// set cookie options
-// 	const cookieOptions = {
-// 		expires: new Date(
-// 			Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-// 		),
-// 		httpOnly: true,
-// 	};
-
-// 	// In production mode: we set to secure = true
-// 	if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
-
-// 	// do not show the password to client side
-// 	user.password = undefined;
-
-// 	res.cookie("jwt", token, cookieOptions);
-
-// 	res.status(statusCode).json({
-// 		status: "success",
-// 		token,
-// 		user,
-// 	});
-// };
+});
 
 export const login = catchAsync(async (req, res, next) => {
 	const { email, password } = req.body;
@@ -52,32 +50,12 @@ export const login = catchAsync(async (req, res, next) => {
 		return next(new AppError("Incorrect email or password", 401));
 	}
 
-	const tokens = await loginService(user);
-
-	console.log("tokens: ", tokens);
-
-	res.status(200).json({
-		status: "success",
-		user,
-	});
-
-	// if (tokens) {
-	// 	res.status(200).json({
-	// 		status: "success",
-	// 		user,
-	// 	});
-	// } else {
-	// 	res.status(401).json({
-	// 		status: "fail",
-	// 	});
-	// }
-
 	// 3) If everything is Ok, then send the response to client
-	// createSendToken(user, 200, res);
+	createSendToken(user, 200, res);
 });
 
 export const signup = catchAsync(async (req, res, next) => {
-	const { name, email, password, passwordConfirm } = req.body;
+	const { name, email, password } = req.body;
 
 	const newUser = await User.create({
 		name,
@@ -86,6 +64,21 @@ export const signup = catchAsync(async (req, res, next) => {
 	});
 
 	createSendToken(newUser, 201, res);
+});
+
+export const logout = catchAsync(async (req, res, next) => {
+	const user = req.user;
+	console.log(user._id.toString());
+
+	await removeRefreshToken(user._id.toString());
+
+	// Clear the refreshToken cookie on the client
+	res.clearCookie("jwt");
+
+	res.status(200).json({
+		status: "success",
+		message: "Logout successfully",
+	});
 });
 
 // exports.forgotPassword = catchAsync(async (req, res, next) => {
