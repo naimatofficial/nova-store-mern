@@ -19,8 +19,6 @@ const ProfileMenu = ({ user }) => {
 	const userInfo = useSelector((state) => state.auth.userInfo); // Get the entire Redux state
 	const accessToken = userInfo.accessToken;
 
-	console.log({ accessToken });
-
 	const logoutHandler = async () => {
 		try {
 			await logoutAPI(accessToken);
@@ -35,8 +33,6 @@ const ProfileMenu = ({ user }) => {
 			console.error(err);
 		}
 	};
-
-	console.log("user", user);
 
 	return (
 		<Menu>

@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config({ path: "./.env.local" });
 
-const redisClient = Redis.createClient({ url: "redis://127.0.0.1:6379" });
+const redisClient = Redis.createClient({ url: process.env.REDIS_URL });
 
 redisClient.on("error", (err) => console.log("Redis Client Error", err));
 

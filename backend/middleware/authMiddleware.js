@@ -23,24 +23,13 @@ export const protect = catchAsync(async (req, res, next) => {
 		);
 	}
 
-	console.log({ token });
-
 	// 2) Verification token
-	let decoded;
-	try {
-		decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-		console.log("Token is valid. Decoded payload:", decoded);
-	} catch (error) {
-		console.error("Token verification failed:", error.message);
-	}
-	// const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-	const { userId } = decoded;
+	const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
-	console.log({ decoded });
+	const { userId } = decoded;
 
 	// 3) Check token in Redis Cache
 	const refreshToken = getRefreshToken(userId);
-	console.log({ refreshToken });
 
 	if (!refreshToken) {
 		return next(
@@ -50,8 +39,6 @@ export const protect = catchAsync(async (req, res, next) => {
 
 	// 4) Check if user still exists
 	const currentUser = await User.findById(userId);
-
-	console.log({ currentUser });
 
 	if (!currentUser) {
 		return next(
