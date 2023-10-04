@@ -11,7 +11,7 @@ import {
 
 export const createProduct = createOne(Product);
 export const getProducts = getAll(Product);
-export const getProductById = getOne(Product);
+export const getProduct = getOne(Product);
 export const deleteProduct = deleteOne(Product);
 export const updateProduct = updateOne(Product);
 

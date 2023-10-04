@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router();
 import {
 	getProducts,
-	getProductById,
+	getProduct,
 	createProduct,
 	updateProduct,
 	deleteProduct,
@@ -22,7 +22,7 @@ router.route("/:id/reviews").post(protect, checkObjectId, createProductReview);
 router.get("/top", getTopProducts);
 router
 	.route("/:id")
-	.get(checkObjectId, getProductById)
+	.get(checkObjectId, getProduct)
 	.put(protect, restrictTo("admin"), checkObjectId, updateProduct)
 	.delete(protect, restrictTo("admin"), checkObjectId, deleteProduct);
 
