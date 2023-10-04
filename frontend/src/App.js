@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 // ** COMPONENTS ** //
 import Loader from "./components/Loader";
+import NotFound from "./components/NotFound";
 const Header = lazy(() => import("./components/header/Header"));
 const Footer = lazy(() => import("./components/Footer"));
 
@@ -28,6 +29,7 @@ function App() {
 				<Route path="/register" element={<RegisterScreen />} />
 				<Route path="/product/:productId" element={<ProductScreen />} />
 				<Route path="/profile" element={<ProfileScreen />} />
+				<Route path="*" element={<NotFound />} />
 			</Routes>
 			{pathname !== "/login" && pathname !== "/register" && <Footer />}
 		</Suspense>

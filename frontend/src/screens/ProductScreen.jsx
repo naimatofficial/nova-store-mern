@@ -11,6 +11,7 @@ const ProductScreen = () => {
 	const { productId } = useParams();
 
 	const { data, isLoading, error } = useGetProductDetailsQuery(productId);
+	const product = data?.doc;
 
 	return isLoading ? (
 		<Loader />
@@ -18,7 +19,7 @@ const ProductScreen = () => {
 		<Alert color="red">{error}</Alert>
 	) : data ? (
 		<>
-			<ProductDetails product={data.doc} />
+			<ProductDetails product={product} />
 		</>
 	) : (
 		<p>Product details not found!</p>

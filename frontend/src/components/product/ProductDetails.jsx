@@ -17,8 +17,9 @@ import {
 
 const ProductDetails = ({ product }) => {
 	const { data, isLoading, error } = useGetProductsQuery({
-		category: product.category,
+		category: product?.category,
 	});
+
 	const dispatch = useDispatch();
 
 	const [quantity, setQuantity] = useState(1);
@@ -50,7 +51,7 @@ const ProductDetails = ({ product }) => {
 
 	let filteredProducts;
 	if (data && data.doc && product._id) {
-		filteredProducts = data.doc.filter((p) => p._id !== product._id) || [];
+		filteredProducts = data?.doc?.filter((p) => p._id !== product._id) || [];
 	}
 
 	if (isLoading) {
