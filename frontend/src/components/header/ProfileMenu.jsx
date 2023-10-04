@@ -5,18 +5,35 @@ import {
 	MenuItem,
 	Typography,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/slices/authSlice";
 import Avatar from "./Avatar";
+import { useLogoutMutation } from "../../redux/slices/usersApiSlice";
 
 const ProfileMenu = ({ user }) => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const [logoutAPI, { isLoading }] = useLogoutMutation();
 
-	const signOutHandler = () => {
-		dispatch(logout());
-		// Perform a hard refresh to re-render the entire page
-		window.location.reload();
+	const userInfo = useSelector((state) => state.auth.userInfo); // Get the entire Redux state
+	const accessToken = userInfo.accessToken;
+
+	console.log({ accessToken });
+
+	const logoutHandler = async () => {
+		try {
+			await logoutAPI(accessToken);
+			dispatch(logout());
+
+			// Perform a hard refresh to re-render the entire page
+			if (isLoading) {
+				navigate("/login");
+			}
+			// window.location.reload();
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	console.log("user", user);
@@ -84,7 +101,7 @@ const ProfileMenu = ({ user }) => {
 				</MenuItem>
 
 				<hr className="my-2 border-blue-gray-50" />
-				<MenuItem className="flex items-center gap-2" onClick={signOutHandler}>
+				<MenuItem className="flex items-center gap-2" onClick={logoutHandler}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
@@ -107,4 +124,5 @@ const ProfileMenu = ({ user }) => {
 		</Menu>
 	);
 };
+
 export default ProfileMenu;

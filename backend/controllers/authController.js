@@ -12,6 +12,8 @@ const createSendToken = catchAsync(async (user, statusCode, res) => {
 	// loginService is Redis cache to store the token in cache
 	const { accessToken } = await loginService(user);
 
+	console.log({ accessToken });
+
 	// set cookie options
 	const cookieOptions = {
 		expires: new Date(
@@ -27,6 +29,7 @@ const createSendToken = catchAsync(async (user, statusCode, res) => {
 	user.password = undefined;
 
 	res.cookie("jwt", accessToken, cookieOptions);
+	console.log(res.cookie);
 
 	res.status(statusCode).json({
 		status: "success",

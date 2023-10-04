@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 // ** COMPONENTS ** //
 import Loader from "./components/Loader";
 const Header = lazy(() => import("./components/header/Header"));
-const Footer = lazy(() => import("./componentsFooter"));
+const Footer = lazy(() => import("./components/Footer"));
 
 // ** SCREENS OR LAYOUTS ** //
 const HomeScreen = lazy(() => import("./screens/HomeScreen"));
