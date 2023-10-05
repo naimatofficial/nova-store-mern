@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { FaArrowLeft, FaHeart } from "react-icons/fa";
 import { Alert, Button, Rating, Typography } from "@material-tailwind/react";
 
 import Loader from "../Loader";
 import ProductList from "./ProductList";
+import Quantity from "./Quantity";
 
 import { useGetProductsQuery } from "../../redux/slices/productsApiSlice";
 import { addViewedProduct } from "../../redux/slices/recentlyViewedSlice";
-import { useDispatch, useSelector } from "react-redux";
-import Quantity from "./Quantity";
 import {
 	addToFavorites,
 	removeFromFavorites,
 } from "../../redux/slices/favoriteProductsSlice";
+import { addToCart } from "./../../redux/slices/cartSlice";
 
 const ProductDetails = ({ product }) => {
 	const { data, isLoading, error } = useGetProductsQuery({
@@ -22,7 +23,7 @@ const ProductDetails = ({ product }) => {
 
 	const dispatch = useDispatch();
 
-	const [quantity, setQuantity] = useState(1);
+	const [qty, setQty] = useState(1);
 	const [favorite, setFavorite] = useState(0);
 
 	const isFavorite = favorite === 1;
@@ -30,22 +31,10 @@ const ProductDetails = ({ product }) => {
 		? "bg-pink-500 text-white"
 		: "bg-gray-100 text-black ";
 
-	const increaseQuantity = () => {
-		if (quantity < product.countInStock) {
-			setQuantity(quantity + 1);
-		}
-	};
-
-	const decreaseQuantity = () => {
-		if (quantity > 1) {
-			setQuantity(quantity - 1);
-		}
-	};
-
 	useEffect(() => {
 		if (product) {
 			dispatch(addViewedProduct(product._id));
-			setQuantity(1);
+			setQty(1);
 		}
 	}, [dispatch, product]);
 
@@ -53,6 +42,10 @@ const ProductDetails = ({ product }) => {
 	if (data && data.doc && product._id) {
 		filteredProducts = data?.doc?.filter((p) => p._id !== product._id) || [];
 	}
+
+	const addToCartHandler = () => {
+		dispatch(addToCart({ ...product, qty }));
+	};
 
 	if (isLoading) {
 		return <Loader />;
@@ -152,11 +145,7 @@ const ProductDetails = ({ product }) => {
 									</Typography>
 								) : product.countInStock > 1 ? (
 									<>
-										<Quantity
-											quantity={quantity}
-											increaseQuantity={increaseQuantity}
-											decreaseQuantity={decreaseQuantity}
-										/>
+										<Quantity qty={qty} setQty={setQty} product={product} />
 										<span className="mx-3 px-1">
 											{product.countInStock} pieces left
 										</span>
@@ -172,7 +161,10 @@ const ProductDetails = ({ product }) => {
 						</Button>
 					</Link>
 					<div className="flex justify-between gap-2">
-						<Button className="text-sm flex-grow  rounded-full">
+						<Button
+							className="text-sm flex-grow  rounded-full"
+							onClick={addToCartHandler}
+						>
 							Add to Cart
 						</Button>
 						<button
@@ -188,14 +180,14 @@ const ProductDetails = ({ product }) => {
 				</div>
 			</div>
 
-			{filteredProducts.length > 0 && (
+			{filteredProducts.length > 0 ? (
 				<div className=" w-full mx-auto p-4 mt-3">
 					<Typography variant="h4" className="font-bold text-center">
 						Related Products
 					</Typography>
 					{filteredProducts && <ProductList products={filteredProducts} />}
 				</div>
-			)}
+			) : null}
 		</>
 	);
 };
