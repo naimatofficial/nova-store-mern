@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, addToCart }) {
 	function trimText(text, maxLength) {
 		if (text.length <= maxLength) {
 			return text;
@@ -56,6 +56,7 @@ export default function ProductCard({ product }) {
 				<Button
 					ripple={false}
 					fullWidth={true}
+					onClick={addToCart(product, 1)}
 					className=" rounded-full bg-orange-400 text-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
 				>
 					Add to Cart

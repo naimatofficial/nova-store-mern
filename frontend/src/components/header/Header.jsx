@@ -87,16 +87,9 @@ export default function Header() {
 								<FaHeart className="text-2xl text-pink-500" />
 							</button>
 						</Tooltip>
-						<Tooltip
-							content="Cart"
-							animate={{
-								mount: { scale: 1, y: 0 },
-								unmount: { scale: 0, y: 25 },
-							}}
-							className="bg-gray-300 text-black"
-						>
-							<CartIcon />
-						</Tooltip>
+
+						<CartIcon />
+
 						<IconButton
 							variant="text"
 							className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"

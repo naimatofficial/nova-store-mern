@@ -1,16 +1,11 @@
-import {
-	Card,
-	CardBody,
-	CardHeader,
-	Typography,
-} from "@material-tailwind/react";
+import { CardBody, CardHeader, Typography } from "@material-tailwind/react";
 import React from "react";
 import { Link } from "react-router-dom";
 
 const CartItem = ({ item, addToCart, removeFromCart }) => {
 	return (
 		<div>
-			<Card className="w-3/5 flex flex-row item-center">
+			<div className="w-3/5 flex flex-row item-center">
 				<CardHeader shadow={false} floated={false} className="h-14">
 					<img
 						src={item.image}
@@ -18,8 +13,8 @@ const CartItem = ({ item, addToCart, removeFromCart }) => {
 						className="h-full w-full object-cover"
 					/>
 				</CardHeader>
-				<CardBody className="p-4">
-					<div className="flex items-center justify-between">
+				<CardBody className="p-4 flex items-center justify-between">
+					<div>
 						<Link
 							to={`/product/${item._id}`}
 							className="hover:cursor-pointer hover:text-gray-600"
@@ -42,7 +37,7 @@ const CartItem = ({ item, addToCart, removeFromCart }) => {
 							id="quantity"
 							value={item.qty}
 							onChange={(e) => addToCart(item, Number(e.target.value))}
-							className="border border-gray-300 rounded-full focus:outline-none  py-1 px-2 text-sm"
+							className="border border-gray-300 rounded-full focus:outline-none py-1 px-2 text-sm"
 						>
 							{[...Array(item.countInStock).keys()].map((x) => (
 								<option key={x + 1} value={x + 1}>
@@ -52,7 +47,7 @@ const CartItem = ({ item, addToCart, removeFromCart }) => {
 						</select>
 					</div>
 				</CardBody>
-			</Card>
+			</div>
 		</div>
 	);
 };

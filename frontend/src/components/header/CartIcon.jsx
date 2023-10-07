@@ -6,6 +6,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Tooltip } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 const StyledBadge = styled(Badge)(() => ({
 	"& .MuiBadge-badge": {
@@ -30,10 +32,21 @@ export default function CartIcon() {
 	}, [cartItems]);
 
 	return (
-		<IconButton aria-label="cart">
-			<StyledBadge badgeContent={totalItems} color="error">
-				<ShoppingCartIcon className="text-blue-500" fontSize="large" />
-			</StyledBadge>
-		</IconButton>
+		<Tooltip
+			content="Cart"
+			animate={{
+				mount: { scale: 1, y: 0 },
+				unmount: { scale: 0, y: 25 },
+			}}
+			className="bg-gray-300 text-black"
+		>
+			<Link to="/cart">
+				<IconButton aria-label="cart">
+					<StyledBadge badgeContent={totalItems} color="error">
+						<ShoppingCartIcon className="text-blue-500" fontSize="large" />
+					</StyledBadge>
+				</IconButton>
+			</Link>
+		</Tooltip>
 	);
 }

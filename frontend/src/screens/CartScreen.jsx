@@ -23,16 +23,18 @@ const CartScreen = () => {
 	return (
 		<>
 			{cartItems && cartItems.length > 0 ? (
-				<CartList
-					items={cartItems}
-					addToCart={addToCartHandler}
-					removeToCart={removeFromCartHandler}
-				/>
+				<div className=" w-3/5 px-4 py-2 mx-auto">
+					<CartList
+						items={cartItems}
+						addToCart={addToCartHandler}
+						removeToCart={removeFromCartHandler}
+					/>
+				</div>
 			) : (
 				<>
 					<Typography variant="h3">Your Cart is empty!</Typography>
 					<Link to="/">
-						<Button variant="default" className="rounded-full">
+						<Button variant="filled" className="rounded-full">
 							Go to Shopping
 						</Button>
 					</Link>
