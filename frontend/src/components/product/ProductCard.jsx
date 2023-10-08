@@ -52,7 +52,10 @@ export default function ProductCard({ product }) {
 					</Link>
 				</div>
 				<div>
-					<Typography color="blue-gray" className="font-medium text-blue-400">
+					<Typography
+						color="blue-gray"
+						className="font-medium text-lg text-orange-800"
+					>
 						${product.price}
 					</Typography>
 				</div>
@@ -61,7 +64,7 @@ export default function ProductCard({ product }) {
 					<span className="font-medium">({productRating})</span>
 				</div>
 			</CardBody>
-			<CardFooter className="pt-0">
+			{/* <CardFooter className="pt-0">
 				<Button
 					ripple={false}
 					fullWidth={true}
@@ -70,7 +73,7 @@ export default function ProductCard({ product }) {
 				>
 					Add to Cart
 				</Button>
-			</CardFooter>
+			</CardFooter> */}
 		</Card>
 	);
 }

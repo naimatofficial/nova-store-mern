@@ -156,7 +156,10 @@ const ProductDetails = ({ product }) => {
 					</div>
 
 					<Link to="/cart">
-						<Button className="bg-yellow-700 text-black text-sm w-full rounded-full">
+						<Button
+							className="bg-yellow-700 text-black text-sm w-full rounded-full"
+							disabled={product.countInStock < 1}
+						>
 							Buy Now
 						</Button>
 					</Link>
@@ -164,6 +167,7 @@ const ProductDetails = ({ product }) => {
 						<Button
 							className="text-sm flex-grow  rounded-full"
 							onClick={addToCartHandler}
+							disabled={product.countInStock < 1}
 						>
 							Add to Cart
 						</Button>
