@@ -5,9 +5,7 @@ const CartList = ({ items }) => {
 	return (
 		<div className="flex flex-col gap-3 flex-1">
 			{items.map((item) => (
-				<>
-					<CartItem item={item} />
-				</>
+				<CartItem key={item._id} item={item} />
 			))}
 		</div>
 	);

@@ -44,6 +44,7 @@ const ProductDetails = ({ product }) => {
 	}
 
 	const addToCartHandler = () => {
+		console.log("qty: " + qty);
 		dispatch(addToCart({ ...product, qty }));
 	};
 
@@ -159,6 +160,7 @@ const ProductDetails = ({ product }) => {
 						<Button
 							className="bg-yellow-700 text-black text-sm w-full rounded-full"
 							disabled={product.countInStock < 1}
+							onClick={addToCartHandler}
 						>
 							Buy Now
 						</Button>
