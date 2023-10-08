@@ -5,9 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 // ** COMPONENTS ** //
 import Loader from "./components/Loader";
-import NotFound from "./components/NotFound";
 const Header = lazy(() => import("./components/header/Header"));
 const Footer = lazy(() => import("./components/Footer"));
+const NotFound = lazy(() => import("./components/NotFound"));
 
 // ** SCREENS OR LAYOUTS ** //
 const HomeScreen = lazy(() => import("./screens/HomeScreen"));

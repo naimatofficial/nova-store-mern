@@ -30,7 +30,13 @@ const CartSummary = () => {
 				</div>
 				<div className="flex justify-between mb-1">
 					<p>Shipping:</p>
-					<p className="font-medium">${shippingPrice}</p>
+					<p className="font-medium">
+						{shippingPrice > 0 ? (
+							<span>${shippingPrice}</span>
+						) : (
+							<span className="text-green-800">Free</span>
+						)}
+					</p>
 				</div>
 				<div className="flex justify-between mb-1">
 					<p>Tax ({taxRate * 100}%):</p>

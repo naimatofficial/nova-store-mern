@@ -28,12 +28,12 @@ const Quantity = ({ product, qty, setQty }) => {
 				readOnly
 				className="w-16 p-2 text-center border border-gray-300 rounded-md mx-2 focus:outline-none"
 			/>
-			<buttons
+			<button
 				onClick={increaseQty}
-				className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none"
+				className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none "
 			>
 				<FaPlus />
-			</buttons>
+			</button>
 		</div>
 	);
 };
