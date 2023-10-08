@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CartList from "../components/cart/CartList";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Typography } from "@material-tailwind/react";
 
 import CartSummary from "../components/cart/CartSummary";
+import Loader from "./../components/Loader";
 
 const CartScreen = () => {
+	const [loading, setLoading] = useState(false);
 	const { cartItems } = useSelector((state) => state.cart);
 
+	useEffect(() => {
+		if (cartItems?.length < 0) {
+			setLoading(true);
+		} else setLoading(false);
+	}, [cartItems.length]);
+
+	if (loading) {
+		return <Loader />;
+	}
 	return (
 		<div className="p-4 mx-4">
 			{cartItems && cartItems.length > 0 ? (

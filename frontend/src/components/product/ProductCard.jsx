@@ -1,20 +1,13 @@
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import {
 	Card,
 	CardHeader,
 	CardBody,
-	CardFooter,
 	Typography,
-	Button,
 	Rating,
 } from "@material-tailwind/react";
 
-import { addToCart } from "../../redux/slices/cartSlice";
-
 export default function ProductCard({ product }) {
-	const dispatch = useDispatch();
-
 	function trimText(text, maxLength) {
 		if (text.length <= maxLength) {
 			return text;
@@ -25,10 +18,6 @@ export default function ProductCard({ product }) {
 	if (!product) {
 		return <p>Product data is missing or invalid.</p>;
 	}
-
-	const addToCartHandler = (product, qty) => {
-		dispatch(addToCart({ ...product, qty }));
-	};
 
 	const productRating = (Math.round(product.rating * 10) / 10).toFixed(1); // 3 --> 3.0
 
@@ -64,16 +53,6 @@ export default function ProductCard({ product }) {
 					<span className="font-medium">({productRating})</span>
 				</div>
 			</CardBody>
-			{/* <CardFooter className="pt-0">
-				<Button
-					ripple={false}
-					fullWidth={true}
-					onClick={() => addToCartHandler(product, 1)}
-					className=" rounded-full bg-orange-400 text-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-				>
-					Add to Cart
-				</Button>
-			</CardFooter> */}
 		</Card>
 	);
 }
