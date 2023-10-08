@@ -5,11 +5,13 @@ const CartList = ({ items, addToCart, removeFromCart }) => {
 	return (
 		<div className="flex flex-col gap-3">
 			{items.map((item) => (
-				<CartItem
-					item={item}
-					addToCart={addToCart}
-					removeFromCart={removeFromCart}
-				/>
+				<>
+					<CartItem
+						item={item}
+						addToCart={addToCart}
+						removeFromCart={removeFromCart}
+					/>
+				</>
 			))}
 		</div>
 	);

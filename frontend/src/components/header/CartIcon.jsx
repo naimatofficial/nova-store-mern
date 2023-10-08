@@ -1,13 +1,12 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
+import { Tooltip } from "@material-tailwind/react";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useSelector } from "react-redux";
-import { useState } from "react";
-import { useEffect } from "react";
-import { Tooltip } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
 
 const StyledBadge = styled(Badge)(() => ({
 	"& .MuiBadge-badge": {
@@ -20,16 +19,7 @@ const StyledBadge = styled(Badge)(() => ({
 }));
 
 export default function CartIcon() {
-	const cart = useSelector((state) => state.cart);
-	const { cartItems } = cart;
-
-	const [totalItems, setTotalItems] = useState(0);
-
-	useEffect(() => {
-		if (cartItems && cartItems.length > 0) {
-			setTotalItems(cartItems.length);
-		}
-	}, [cartItems]);
+	const { cartItems } = useSelector((state) => state.cart);
 
 	return (
 		<Tooltip
@@ -42,7 +32,10 @@ export default function CartIcon() {
 		>
 			<Link to="/cart">
 				<IconButton aria-label="cart">
-					<StyledBadge badgeContent={totalItems} color="error">
+					<StyledBadge
+						badgeContent={cartItems.reduce((a, c) => a + c.qty, 0)}
+						color="error"
+					>
 						<ShoppingCartIcon className="text-blue-500" fontSize="large" />
 					</StyledBadge>
 				</IconButton>

@@ -46,6 +46,7 @@ const cartSlice = createSlice({
 		},
 		clearCartItems: (state, action) => {
 			state.cartItems = [];
+			// localStorage.removeItem("cart");
 			localStorage.setItem("cart", JSON.stringify(state));
 		},
 		// NOTE: here we need to reset state for when a user logs out so the next
