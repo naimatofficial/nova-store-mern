@@ -15,34 +15,29 @@ const CartItem = ({ item }) => {
 		dispatch(removeFromCart(id));
 		console.log("remove: " + id);
 	};
+
 	return (
-		<div>
-			<div className="w-3/5 flex flex-row item-center">
-				<div className="h-14">
-					<img
-						src={item.image}
-						alt="card-img"
-						className="h-full w-full object-cover"
-					/>
+		<div className="bg-white p-3 flex gap-3 items-center rounded-lg shadow-sm">
+			<div>
+				<img
+					src={item.image}
+					alt={item.name}
+					className="h-20 object-cover rounded-md"
+				/>
+			</div>
+			<div className="ml-3 flex-1 p-2 flex flex-col justify-between">
+				<div>
+					<Link
+						to={`/product/${item._id}`}
+						className="hover:cursor-pointer hover:text-gray-600"
+					>
+						<h2 className="font-medium text-lg">{item.name}</h2>
+					</Link>
+
+					<p className="text-sm text-gray-600">Price: ${item.price}</p>
 				</div>
-				<div className="p-4 border border-gray-200 mb-4 rounded-lg">
-					<div className="flex justify-between items-center">
-						<div>
-							<Link
-								to={`/product/${item._id}`}
-								className="hover:cursor-pointer hover:text-gray-600"
-							>
-								<h2 className="font-medium text-lg">{item.name}</h2>
-							</Link>
-							<p className="text-sm text-gray-500">Price: ${item.price}</p>
-						</div>
-						<button
-							onClick={() => removeFromCartHandler(item._id)}
-							className="text-red-500 hover:text-red-600"
-						>
-							Remove
-						</button>
-					</div>
+
+				<div className="flex justify-between items-center p-2">
 					<div className="flex items-center space-x-2">
 						<label htmlFor="quantity" className="text-sm font-semibold">
 							Qty:
@@ -60,8 +55,14 @@ const CartItem = ({ item }) => {
 							))}
 						</select>
 					</div>
-					<p className="mt-4 text-lg font-medium">
-						Total: ${item.qty * item.price}
+					<button
+						onClick={() => removeFromCartHandler(item._id)}
+						className="text-red-500 hover:text-red-600"
+					>
+						Remove
+					</button>
+					<p className="text-lg font-medium align-middle">
+						Total: ${(item.qty * item.price).toFixed(2)}
 					</p>
 				</div>
 			</div>

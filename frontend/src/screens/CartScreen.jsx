@@ -1,30 +1,20 @@
 import React from "react";
 import CartList from "../components/cart/CartList";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Typography } from "@material-tailwind/react";
-import {
-	addToCart,
-	clearCartItems,
-	removeFromCart,
-} from "../redux/slices/cartSlice";
+
+import CartSummary from "../components/cart/CartSummary";
 
 const CartScreen = () => {
-	const cart = useSelector((state) => state.cart);
-	const { cartItems } = cart;
-	const dispatch = useDispatch();
-
-	const clearCartHandler = () => {
-		console.log("clear cart");
-		dispatch(clearCartItems());
-	};
+	const { cartItems } = useSelector((state) => state.cart);
 
 	return (
 		<>
 			{cartItems && cartItems.length > 0 ? (
-				<div className="w-3/5 px-4 py-2 mx-auto flex gap-4">
+				<div className="w-11/12 px-4 py-2 mx-auto flex justify-between gap-4">
 					<CartList items={cartItems} />
-					{/* <CartSummary /> */}
+					<CartSummary />
 				</div>
 			) : (
 				<>
