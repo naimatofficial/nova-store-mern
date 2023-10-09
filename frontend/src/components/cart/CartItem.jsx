@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { addToCart, removeFromCart } from "../../redux/slices/cartSlice";
 import { useDispatch } from "react-redux";
+import { Button, Typography } from "@material-tailwind/react";
 
 const CartItem = ({ item }) => {
 	const dispatch = useDispatch();
@@ -31,10 +32,14 @@ const CartItem = ({ item }) => {
 						to={`/product/${item._id}`}
 						className="hover:cursor-pointer hover:text-gray-600"
 					>
-						<h2 className="font-medium text-lg">{item.name}</h2>
+						<Typography variant="h3" className="font-medium text-lg">
+							{item.name}
+						</Typography>
 					</Link>
 
-					<p className="text-sm text-gray-600">Price: ${item.price}</p>
+					<Typography variant="paragraph" className="text-sm text-gray-600">
+						Price: ${item.price}
+					</Typography>
 				</div>
 
 				<div className="flex justify-between items-center p-2">
@@ -55,15 +60,19 @@ const CartItem = ({ item }) => {
 							))}
 						</select>
 					</div>
-					<button
+					<Button
+						variant="text"
 						onClick={() => removeFromCartHandler(item._id)}
-						className="text-red-500 hover:text-red-600"
+						className="text-red-500 hover:text-red-600 hover:bg-inherit"
 					>
 						Remove
-					</button>
-					<p className="text-lg font-medium align-middle">
+					</Button>
+					<Typography
+						variant="paragraph"
+						className="text-lg font-medium align-middle"
+					>
 						Total: ${(item.qty * item.price).toFixed(2)}
-					</p>
+					</Typography>
 				</div>
 			</div>
 		</div>

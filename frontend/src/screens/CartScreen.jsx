@@ -1,36 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import CartList from "../components/cart/CartList";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Typography } from "@material-tailwind/react";
 
 import CartSummary from "../components/cart/CartSummary";
-import Loader from "./../components/Loader";
+import { clearCartItems } from "../redux/slices/cartSlice";
 
 const CartScreen = () => {
-	const [loading, setLoading] = useState(false);
 	const { cartItems } = useSelector((state) => state.cart);
+	const dispatch = useDispatch();
 
-	useEffect(() => {
-		if (cartItems?.length < 0) {
-			setLoading(true);
-		} else setLoading(false);
-	}, [cartItems.length]);
+	const clearCartHandler = () => {
+		dispatch(clearCartItems());
+	};
 
-	if (loading) {
-		return <Loader />;
-	}
 	return (
 		<div className="p-4 mx-4">
 			{cartItems && cartItems.length > 0 ? (
 				<>
-					<Typography
-						variant="h2"
-						className="text-xlg broder bottom-1 w-full mb-3"
-					>
-						Shopping Cart
-					</Typography>
-					<div className="w-11/12 px-4 py-2 mx-auto flex justify-between gap-4">
+					<div className="flex justify-between w-3/5 mx-10 p-2">
+						<Typography
+							variant="h3"
+							className="text-xlg broder bottom-1 w-full mb-3"
+						>
+							Shopping Cart
+						</Typography>
+						<Button
+							variant="outlined"
+							className="rounded-full w-44 h-12"
+							onClick={clearCartHandler}
+						>
+							Clear cart
+						</Button>
+					</div>
+
+					<div className="w-11/12 px-4 py-2 mx-auto flex flex-col justify-between gap-4 md:flex-row">
 						<CartList items={cartItems} />
 						<CartSummary />
 					</div>

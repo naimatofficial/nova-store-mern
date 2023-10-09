@@ -16,6 +16,7 @@ const RegisterScreen = lazy(() => import("./screens/RegisterScreen"));
 const ProductScreen = lazy(() => import("./screens/ProductScreen"));
 const ProfileScreen = lazy(() => import("./screens/ProfileScreen"));
 const CartScreen = lazy(() => import("./screens/CartScreen"));
+const CheckoutScreen = lazy(() => import("./screens/CheckoutScreen"));
 
 function App() {
 	const { pathname } = useLocation();
@@ -31,6 +32,7 @@ function App() {
 				<Route path="/product/:productId" element={<ProductScreen />} />
 				<Route path="/profile" element={<ProfileScreen />} />
 				<Route path="/cart" element={<CartScreen />} />
+				<Route path="/checkout" element={<CheckoutScreen />} />
 				<Route path="*" element={<NotFound />} />
 			</Routes>
 			{pathname !== "/login" && pathname !== "/register" && <Footer />}

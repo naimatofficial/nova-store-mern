@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Button } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
 const CartSummary = () => {
@@ -17,43 +17,45 @@ const CartSummary = () => {
 	const totalPrice = cart?.totalPrice;
 
 	return (
-		<div className="w-1/3 p-5  rounded-lg bg-white text-lg ">
+		<div className="w-full p-5 md:w-1/3  rounded-lg bg-white text-lg ">
 			<h1 className="text-2xl font-semibold">Cart Summary</h1>
 			<div className="mt-4">
 				<div className="flex justify-between mb-1">
-					<p>Total Items:</p>
-					<p className="font-medium">{totalItems}</p>
+					<Typography variant="paragraph">Total Items:</Typography>
+					<Typography className="font-medium">{totalItems}</Typography>
 				</div>
 				<div className="flex justify-between mb-1">
-					<p>Subtotal:</p>
-					<p className="font-medium">${subtotal}</p>
+					<Typography variant="paragraph">Subtotal:</Typography>
+					<Typography className="font-medium">${subtotal}</Typography>
 				</div>
 				<div className="flex justify-between mb-1">
-					<p>Shipping:</p>
-					<p className="font-medium">
+					<Typography variant="paragraph">Shipping:</Typography>
+					<Typography className="font-medium">
 						{shippingPrice > 0 ? (
 							<span>${shippingPrice}</span>
 						) : (
 							<span className="text-green-800">Free</span>
 						)}
-					</p>
+					</Typography>
 				</div>
 				<div className="flex justify-between mb-1">
-					<p>Tax ({taxRate * 100}%):</p>
-					<p className="font-medium">${taxPrice}</p>
+					<Typography variant="paragraph">Tax ({taxRate * 100}%):</Typography>
+					<Typography className="font-medium">${taxPrice}</Typography>
 				</div>
 				<hr className="my-2" />
 				<div className="flex justify-between mb-1">
-					<p>Total Price:</p>
-					<p className="font-medium">${totalPrice}</p>
+					<Typography variant="paragraph">Total Price:</Typography>
+					<Typography className="font-medium">${totalPrice}</Typography>
 				</div>
 			</div>
-			<Button
-				variant="filled"
-				className="mt-4 bg-blue-500 text-white rounded-full w-full text-lg"
-			>
-				Proceed to Checkout
-			</Button>
+			<Link to="/checkout">
+				<Button
+					variant="filled"
+					className="mt-4 bg-blue-500 text-white rounded-full w-full text-lg"
+				>
+					Proceed to Checkout
+				</Button>
+			</Link>
 			<Link to="/">
 				<Button
 					variant="filled"
