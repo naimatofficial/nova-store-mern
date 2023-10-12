@@ -21,8 +21,6 @@ export default function ProductCard({ product }) {
 
 	const productRating = (Math.round(product.rating * 10) / 10).toFixed(1); // 3 --> 3.0
 
-	console.log("product: ", product);
-
 	return (
 		product && (
 			<Card className="w-64">

@@ -4,9 +4,11 @@ import "react-multi-carousel/lib/styles.css";
 
 import { useGetProductsQuery } from "../../redux/slices/productsApiSlice";
 import ProductCard from "./ProductCard";
-import { Alert } from "@material-tailwind/react";
+import { Alert, Typography } from "@material-tailwind/react";
 
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
+import { useSelector } from "react-redux";
+import Loader from "../Loader";
 
 const responsive = {
 	superLargeDesktop: {
@@ -29,74 +31,73 @@ const responsive = {
 
 const ViewedProducts = () => {
 	const { data, isLoading, isError, error } = useGetProductsQuery({});
-
-	const [viewedProducts, setViewedProducts] = useState([]);
+	const recentlyViewed = useSelector((state) => state.recentlyViewed);
+	const [filteredProducts, setFilteredProducts] = useState([]);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		if (data) {
-			setViewedProducts(data?.doc);
+		setLoading(true);
+
+		if (data && data.doc) {
+			// Step 1: Filter products based on recently viewed IDs
+			const filtered = data.doc.filter((product) =>
+				recentlyViewed.some((viewedItem) => viewedItem.id === product._id)
+			);
+
+			// Step 2: Sort the filtered products by timestamp in descending order
+			filtered.sort((a, b) => {
+				// Use the nullish coalescing operator (??) for default date value
+				const dateA = Date.parse(a.timestamp ?? "1970-01-01T00:00:00");
+				const dateB = Date.parse(b.timestamp ?? "1970-01-01T00:00:00");
+
+				return dateB - dateA; // Sort in descending order
+			});
+
+			console.log("products viewed: ", filtered);
+			setFilteredProducts(filtered);
+			setLoading(false);
 		}
-	}, [data]);
+	}, [data, recentlyViewed]);
 
 	if (isError && error) {
 		return <Alert color="red">{error}</Alert>;
 	}
 
+	if (loading) {
+		return <Loader />;
+	}
+
 	const customLeftArrow = (
-		<div className="arrow-btn absolute left-0 cursor-pointer rounded-full  bg-orange-300 p-3 text-center">
-			{/* <svg
-				xmlns="http://www.w3.org/2000/svg"
-				className="h-6 w-6 text-white "
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-			>
-				<path
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					strokeWidth="2"
-					d="M10 19l-7-7m0 0l7-7m-7 7h18"
-				/>
-			</svg> */}
+		<div className="arrow-btn absolute left-0 cursor-pointer rounded-full bg-orange-300 p-3 text-center">
 			<FaAngleLeft />
 		</div>
 	);
 	const customRightArrow = (
 		<div className="arrow-btn absolute right-0 cursor-pointer rounded-full bg-orange-300 p-3 text-center">
-			{/* <svg
-				xmlns="http://www.w3.org/2000/svg"
-				className="h-6 w-6 text-black"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-			>
-				<path
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					strokeWidth="2"
-					d="M14 5l7 7m0 0l-7 7m7-7H3"
-				/>
-			</svg> */}
 			<FaAngleRight />
 		</div>
 	);
 
-	return (
-		<div className="mb-8 w-3/4 mx-auto">
-			<Carousel
-				infinite
-				customLeftArrow={customLeftArrow}
-				customRightArrow={customRightArrow}
-				responsive={responsive}
-				itemClass="px-4"
-			>
-				{!isLoading &&
-					viewedProducts.map((product, index) => (
-						<ProductCard key={index} product={product} />
-					))}
-			</Carousel>
+	return filteredProducts && filteredProducts.length > 0 ? (
+		<div className="mt-5 p-3">
+			<Typography variant="h3">User recently viewed products</Typography>
+			<div className="mb-8 w-full mt-4">
+				<Carousel
+					infinite
+					customLeftArrow={customLeftArrow}
+					customRightArrow={customRightArrow}
+					responsive={responsive}
+					itemClass="px-4"
+					className="flex justify-center"
+				>
+					{!isLoading &&
+						filteredProducts.map((product, index) => (
+							<ProductCard key={index} product={product} />
+						))}
+				</Carousel>
+			</div>
 		</div>
-	);
+	) : null;
 };
 
 export default ViewedProducts;
