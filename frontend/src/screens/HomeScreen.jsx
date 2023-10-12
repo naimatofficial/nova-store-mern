@@ -3,12 +3,14 @@ import { Alert, Typography } from "@material-tailwind/react";
 import { useGetProductsQuery } from "../redux/slices/productsApiSlice";
 import ProductList from "../components/product/ProductList";
 import Loader from "../components/Loader";
-import RecentlyViewedProducts from "../components/product/RecentlyViewedProducts";
+// import RecentlyViewedProducts from "../components/product/RecentlyViewedProducts";
 import { useSelector } from "react-redux";
+import ProductSlider from "../components/product/ProductSlider";
+import ProductCarousel from "../components/product/ViewedProducts";
 
 const HomeScreen = () => {
 	const { data, isLoading, isError, error } = useGetProductsQuery({});
-	const recentlyViewed = useSelector((state) => state.recentlyViewed);
+	// const recentlyViewed = useSelector((state) => state.recentlyViewed);
 
 	if (isLoading) {
 		return <Loader />;
@@ -24,7 +26,7 @@ const HomeScreen = () => {
 			<div className="p-5 mt-5">
 				<Typography variant="h4">Popular products</Typography>
 				<ProductList products={data.doc} />
-				{recentlyViewed.length > 0 && <RecentlyViewedProducts />}
+				<ProductCarousel />
 			</div>
 		);
 	} else {

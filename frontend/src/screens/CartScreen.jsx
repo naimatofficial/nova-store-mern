@@ -31,7 +31,7 @@ const CartScreen = () => {
 							className="rounded-full w-44 h-12"
 							onClick={clearCartHandler}
 						>
-							Clear cart
+							<span>Clear cart</span>
 						</Button>
 					</div>
 

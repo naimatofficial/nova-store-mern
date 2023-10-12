@@ -21,38 +21,42 @@ export default function ProductCard({ product }) {
 
 	const productRating = (Math.round(product.rating * 10) / 10).toFixed(1); // 3 --> 3.0
 
+	console.log("product: ", product);
+
 	return (
-		<Card className="w-64">
-			<CardHeader shadow={false} floated={false} className="h-48">
-				<Link to={`/product/${product._id}`}>
-					<img
-						src={product.image}
-						alt="card-img"
-						className="h-full w-full object-cover"
-					/>
-				</Link>
-			</CardHeader>
-			<CardBody>
-				<div className="mb-2 flex items-center justify-between">
-					<Link to={`/product/${product._id}`} className="hover:underline">
-						<Typography color="blue-gray" className="font-medium">
-							{trimText(product.name, 40)}
-						</Typography>
+		product && (
+			<Card className="w-64">
+				<CardHeader shadow={false} floated={false} className="h-48">
+					<Link to={`/product/${product._id}`}>
+						<img
+							src={product.image}
+							alt="card-img"
+							className="h-full w-full object-cover"
+						/>
 					</Link>
-				</div>
-				<div>
-					<Typography
-						color="blue-gray"
-						className="font-medium text-lg text-orange-800"
-					>
-						${product.price}
-					</Typography>
-				</div>
-				<div className="flex items-center gap-2">
-					<Rating value={Math.round(product.rating)} readonly />
-					<span className="font-medium">({productRating})</span>
-				</div>
-			</CardBody>
-		</Card>
+				</CardHeader>
+				<CardBody>
+					<div className="mb-2 flex items-center justify-between">
+						<Link to={`/product/${product._id}`} className="hover:underline">
+							<Typography color="blue-gray" className="font-medium">
+								{trimText(product.name, 40)}
+							</Typography>
+						</Link>
+					</div>
+					<div>
+						<Typography
+							color="blue-gray"
+							className="font-medium text-lg text-orange-800"
+						>
+							${product.price}
+						</Typography>
+					</div>
+					<div className="flex items-center gap-2">
+						<Rating value={Math.round(product.rating)} readonly />
+						<span className="font-medium">({productRating})</span>
+					</div>
+				</CardBody>
+			</Card>
+		)
 	);
 }

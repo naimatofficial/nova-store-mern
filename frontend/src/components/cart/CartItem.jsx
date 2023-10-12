@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { addToCart, removeFromCart } from "../../redux/slices/cartSlice";
 import { useDispatch } from "react-redux";
-import { Button, Typography } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
+import { FaTrash } from "react-icons/fa6";
 
 const CartItem = ({ item }) => {
 	const dispatch = useDispatch();
@@ -27,19 +28,28 @@ const CartItem = ({ item }) => {
 				/>
 			</div>
 			<div className="ml-3 flex-1 p-2 flex flex-col justify-between">
-				<div>
-					<Link
-						to={`/product/${item._id}`}
-						className="hover:cursor-pointer hover:text-gray-600"
-					>
-						<Typography variant="h3" className="font-medium text-lg">
-							{item.name}
-						</Typography>
-					</Link>
+				<div className="flex justify-between items-start">
+					<div>
+						<Link
+							to={`/product/${item._id}`}
+							className="hover:cursor-pointer hover:text-gray-600"
+						>
+							<Typography variant="h3" className="font-medium text-lg">
+								{item.name}
+							</Typography>
+						</Link>
 
-					<Typography variant="paragraph" className="text-sm text-gray-600">
-						Price: ${item.price}
-					</Typography>
+						<Typography variant="paragraph" className="text-sm text-gray-600">
+							Price: ${item.price}
+						</Typography>
+					</div>
+
+					<button
+						onClick={() => removeFromCartHandler(item._id)}
+						className="text-inherit"
+					>
+						<FaTrash />
+					</button>
 				</div>
 
 				<div className="flex justify-between items-center p-2">
@@ -60,13 +70,7 @@ const CartItem = ({ item }) => {
 							))}
 						</select>
 					</div>
-					<Button
-						variant="text"
-						onClick={() => removeFromCartHandler(item._id)}
-						className="text-red-500 hover:text-red-600 hover:bg-inherit"
-					>
-						Remove
-					</Button>
+
 					<Typography
 						variant="paragraph"
 						className="text-lg font-medium align-middle"

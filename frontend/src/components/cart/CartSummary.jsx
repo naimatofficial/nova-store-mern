@@ -17,7 +17,7 @@ const CartSummary = () => {
 	const totalPrice = cart?.totalPrice;
 
 	return (
-		<div className="w-full p-5 md:w-1/3  rounded-lg bg-white text-lg ">
+		<div className="w-full p-5 md:w-1/3 rounded-lg bg-white self-start">
 			<h1 className="text-2xl font-semibold">Cart Summary</h1>
 			<div className="mt-4">
 				<div className="flex justify-between mb-1">

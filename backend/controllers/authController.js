@@ -1,6 +1,3 @@
-import crypto from "crypto";
-import jwt from "jsonwebtoken";
-
 import User from "../models/userModel.js";
 import catchAsync from "../utils/catchAsync.js";
 import AppError from "./../utils/appError.js";
@@ -9,7 +6,7 @@ import { loginService } from "../services/authService.js";
 import { removeRefreshToken } from "../services/redisService.js";
 
 const createSendToken = catchAsync(async (user, statusCode, res) => {
-	// loginService is Redis cache to store the token in cache
+	// loginService is Redis database to store the token in cache
 	const { accessToken } = await loginService(user);
 
 	console.log({ accessToken });
@@ -29,7 +26,6 @@ const createSendToken = catchAsync(async (user, statusCode, res) => {
 	user.password = undefined;
 
 	res.cookie("jwt", accessToken, cookieOptions);
-	console.log(res.cookie);
 
 	res.status(statusCode).json({
 		status: "success",
@@ -71,7 +67,6 @@ export const signup = catchAsync(async (req, res, next) => {
 
 export const logout = catchAsync(async (req, res, next) => {
 	const user = req.user;
-	console.log(user._id.toString());
 
 	await removeRefreshToken(user._id.toString());
 
