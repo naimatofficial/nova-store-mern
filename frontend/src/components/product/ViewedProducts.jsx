@@ -88,7 +88,7 @@ const ViewedProducts = () => {
 					customRightArrow={customRightArrow}
 					responsive={responsive}
 					itemClass="px-4"
-					className="flex justify-center"
+					className=""
 				>
 					{!isLoading &&
 						filteredProducts.map((product, index) => (
