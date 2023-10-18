@@ -19,6 +19,10 @@ const ProfileMenu = ({ user }) => {
 	const userInfo = useSelector((state) => state.auth.userInfo); // Get the entire Redux state
 	const accessToken = userInfo.accessToken;
 
+	const isAdmin = user && user.role === "admin";
+
+	console.log(isAdmin);
+
 	const logoutHandler = async () => {
 		try {
 			await logoutAPI(accessToken);
@@ -95,6 +99,34 @@ const ProfileMenu = ({ user }) => {
 						</Typography>
 					</Link>
 				</MenuItem>
+
+				{isAdmin && (
+					<MenuItem>
+						<Link to="/dashboard" className="flex items-center gap-2">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								strokeWidth={2}
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								className="h-4 w-4"
+							>
+								<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+								<g
+									id="SVGRepo_tracerCarrier"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								></g>
+								<g id="SVGRepo_iconCarrier">
+									<path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path>
+								</g>
+							</svg>
+							<Typography variant="small" className="font-normal">
+								Dashboard
+							</Typography>
+						</Link>
+					</MenuItem>
+				)}
 
 				<hr className="my-2 border-blue-gray-50" />
 				<MenuItem className="flex items-center gap-2" onClick={logoutHandler}>
