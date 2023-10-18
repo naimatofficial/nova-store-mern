@@ -6,17 +6,11 @@ import { useLocation } from "react-router-dom";
 const HomeLayout = ({ children }) => {
 	const { pathname } = useLocation();
 
-	const isDashboardRoute = pathname.startsWith("/dashboard");
-
 	return (
 		<>
-			{pathname !== "/login" &&
-				pathname !== "/register" &&
-				!isDashboardRoute && <Header />}
+			{pathname !== "/login" && pathname !== "/register" && <Header />}
 			<main>{children}</main>
-			{pathname !== "/login" &&
-				pathname !== "/register" &&
-				!isDashboardRoute && <Footer />}
+			{pathname !== "/login" && pathname !== "/register" && <Footer />}
 		</>
 	);
 };
