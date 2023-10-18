@@ -1,12 +1,13 @@
 import React, { Suspense, lazy } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Outlet, Route, Routes, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // ** COMPONENTS ** //
 import Loader from "./components/Loader";
-const Header = lazy(() => import("./components/header/Header"));
-const Footer = lazy(() => import("./components/Footer"));
+import DashboardLayout from "./layouts/DashboardLayout";
+import HomeLayout from "./layouts/HomeLayout";
+
 const NotFound = lazy(() => import("./components/NotFound"));
 
 // ** SCREENS OR LAYOUTS ** //
@@ -22,23 +23,59 @@ const Dashboard = lazy(() => import("./dashboard/Dashboard"));
 function App() {
 	const { pathname } = useLocation();
 
+	const isDashboardRoute = pathname.startsWith("/dashboard");
+
 	return (
-		<Suspense fallback={<Loader />}>
+		<div className="app">
 			<ToastContainer />
-			{pathname !== "/login" && pathname !== "/register" && <Header />}
-			<Routes>
-				<Route path="/" element={<HomeScreen />} />
-				<Route path="/login" element={<LoginScreen />} />
-				<Route path="/register" element={<RegisterScreen />} />
-				<Route path="/product/:productId" element={<ProductScreen />} />
-				<Route path="/profile" element={<ProfileScreen />} />
-				<Route path="/cart" element={<CartScreen />} />
-				<Route path="/checkout" element={<CheckoutScreen />} />
-				<Route path="/dashboard" element={<Dashboard />} />
-				<Route path="*" element={<NotFound />} />
-			</Routes>
-			{pathname !== "/login" && pathname !== "/register" && <Footer />}
-		</Suspense>
+
+			<Suspense fallback={<Loader />}>
+				<Routes>
+					<Route
+						path="/"
+						element={
+							isDashboardRoute ? (
+								<DashboardLayout>
+									<Outlet />
+								</DashboardLayout>
+							) : (
+								<HomeLayout>
+									<Outlet />
+								</HomeLayout>
+							)
+						}
+					>
+						<Route index element={<HomeScreen />} />
+						<Route path="/product/:productId" element={<ProductScreen />} />
+						<Route path="/profile" element={<ProfileScreen />} />
+						<Route path="/cart" element={<CartScreen />} />
+						<Route path="/checkout" element={<CheckoutScreen />} />
+					</Route>
+
+					<Route path="/login" element={<LoginScreen />} />
+					<Route path="/register" element={<RegisterScreen />} />
+
+					<Route
+						path="/dashboard/*"
+						element={
+							isDashboardRoute ? (
+								<DashboardLayout>
+									<Outlet />
+								</DashboardLayout>
+							) : (
+								<HomeLayout>
+									<Outlet />
+								</HomeLayout>
+							)
+						}
+					>
+						<Route index element={<Dashboard />} />
+					</Route>
+
+					<Route path="*" element={<NotFound />} />
+				</Routes>
+			</Suspense>
+		</div>
 	);
 }
 
