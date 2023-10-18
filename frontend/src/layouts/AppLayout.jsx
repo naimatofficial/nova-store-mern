@@ -3,7 +3,7 @@ import Header from "../components/header/Header";
 import Footer from "../components/Footer";
 import { useLocation } from "react-router-dom";
 
-const HomeLayout = ({ children }) => {
+const AppLayout = ({ children }) => {
 	const { pathname } = useLocation();
 
 	return (
@@ -15,4 +15,4 @@ const HomeLayout = ({ children }) => {
 	);
 };
 
-export default HomeLayout;
+export default AppLayout;

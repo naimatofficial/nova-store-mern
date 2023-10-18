@@ -1,13 +1,10 @@
 import React, { Suspense, lazy } from "react";
-import { Outlet, Route, Routes, useLocation } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // ** COMPONENTS ** //
 import Loader from "./components/Loader";
-import DashboardLayout from "./layouts/DashboardLayout";
-import HomeLayout from "./layouts/HomeLayout";
-
 const NotFound = lazy(() => import("./components/NotFound"));
 
 // ** SCREENS OR LAYOUTS ** //
@@ -18,31 +15,23 @@ const ProductScreen = lazy(() => import("./screens/ProductScreen"));
 const ProfileScreen = lazy(() => import("./screens/ProfileScreen"));
 const CartScreen = lazy(() => import("./screens/CartScreen"));
 const CheckoutScreen = lazy(() => import("./screens/CheckoutScreen"));
-const Dashboard = lazy(() => import("./dashboard/Dashboard"));
+const Dashboard = lazy(() => import("./dashboard"));
+const DashboardLayout = lazy(() => import("./layouts/DashboardLayout"));
+const AppLayout = lazy(() => import("./layouts/AppLayout"));
 
 function App() {
-	const { pathname } = useLocation();
-
-	const isDashboardRoute = pathname.startsWith("/dashboard");
-
 	return (
 		<div className="app">
+			{/* ToastConatiner For Status -- Error, Success, Failed */}
 			<ToastContainer />
-
 			<Suspense fallback={<Loader />}>
 				<Routes>
 					<Route
 						path="/"
 						element={
-							isDashboardRoute ? (
-								<DashboardLayout>
-									<Outlet />
-								</DashboardLayout>
-							) : (
-								<HomeLayout>
-									<Outlet />
-								</HomeLayout>
-							)
+							<AppLayout>
+								<Outlet />
+							</AppLayout>
 						}
 					>
 						<Route index element={<HomeScreen />} />
@@ -50,23 +39,16 @@ function App() {
 						<Route path="/profile" element={<ProfileScreen />} />
 						<Route path="/cart" element={<CartScreen />} />
 						<Route path="/checkout" element={<CheckoutScreen />} />
+						<Route path="/login" element={<LoginScreen />} />
+						<Route path="/register" element={<RegisterScreen />} />
 					</Route>
-
-					<Route path="/login" element={<LoginScreen />} />
-					<Route path="/register" element={<RegisterScreen />} />
 
 					<Route
 						path="/dashboard/*"
 						element={
-							isDashboardRoute ? (
-								<DashboardLayout>
-									<Outlet />
-								</DashboardLayout>
-							) : (
-								<HomeLayout>
-									<Outlet />
-								</HomeLayout>
-							)
+							<DashboardLayout>
+								<Outlet />
+							</DashboardLayout>
 						}
 					>
 						<Route index element={<Dashboard />} />
