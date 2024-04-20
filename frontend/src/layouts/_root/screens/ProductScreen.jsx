@@ -2,10 +2,10 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Alert } from "@material-tailwind/react";
 
-import ProductDetails from "../components/product/ProductDetails";
-import Loader from "../components/Loader";
+import ProductDetails from "../../../components/product/ProductDetails";
+import Loader from "../../../components/Loader";
 
-import { useGetProductDetailsQuery } from "../redux/slices/productsApiSlice";
+import { useGetProductDetailsQuery } from "../../../redux/slices/productsApiSlice";
 
 const ProductScreen = () => {
 	const { productId } = useParams();

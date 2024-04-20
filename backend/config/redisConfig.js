@@ -1,7 +1,7 @@
 import Redis from "redis";
 import dotenv from "dotenv";
 
-dotenv.config({ path: "./.env.local" });
+dotenv.config({ path: "./.env" });
 
 const redisClient = Redis.createClient({ url: process.env.REDIS_URL });
 

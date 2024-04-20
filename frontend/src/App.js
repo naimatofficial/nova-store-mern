@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 // ** COMPONENTS ** //
 import Loader from "./components/Loader";
+import RootLayout from "./layouts/_root/RootLayout";
 const NotFound = lazy(() => import("./components/NotFound"));
 
 // ** SCREENS OR LAYOUTS ** //
@@ -17,7 +18,9 @@ const CartScreen = lazy(() => import("./screens/CartScreen"));
 const CheckoutScreen = lazy(() => import("./screens/CheckoutScreen"));
 const Dashboard = lazy(() => import("./dashboard"));
 const DashboardLayout = lazy(() => import("./layouts/DashboardLayout"));
-const AppLayout = lazy(() => import("./layouts/AppLayout"));
+import AuthLayout from "./layouts/_auth/AuthLayout";
+import SignInForm from "./layouts/_auth/form/SignInForm";
+import SignUpForm from "./layouts/_auth/form/SignUpForm";
 
 function App() {
 	return (
@@ -26,31 +29,22 @@ function App() {
 			<ToastContainer />
 			<Suspense fallback={<Loader />}>
 				<Routes>
-					<Route
-						path="/"
-						element={
-							<AppLayout>
-								<Outlet />
-							</AppLayout>
-						}
-					>
+					{/* Auth Layout  */}
+					<Route path="/auth/*" element={<AuthLayout />}>
+						<Route path="/auth/sign-in" element={<SignInForm />} />
+						<Route path="/auth/sign-up" element={<SignUpForm />} />
+					</Route>
+
+					{/* Public */}
+					<Route path="/" element={<RootLayout />}>
 						<Route index element={<HomeScreen />} />
 						<Route path="/product/:productId" element={<ProductScreen />} />
 						<Route path="/profile" element={<ProfileScreen />} />
 						<Route path="/cart" element={<CartScreen />} />
 						<Route path="/checkout" element={<CheckoutScreen />} />
-						<Route path="/login" element={<LoginScreen />} />
-						<Route path="/register" element={<RegisterScreen />} />
 					</Route>
 
-					<Route
-						path="/dashboard/*"
-						element={
-							<DashboardLayout>
-								<Outlet />
-							</DashboardLayout>
-						}
-					>
+					<Route path="/dashboard/*" element={<DashboardLayout />}>
 						<Route index element={<Dashboard />} />
 					</Route>
 

@@ -5,7 +5,7 @@ import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 
-dotenv.config({ path: "./.env.local" });
+dotenv.config({ path: "./.env" });
 
 import connectDB from "./config/db.js";
 import globalErrorHandler from "./controllers/errorController.js";

@@ -8,10 +8,10 @@ import {
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useRegisterMutation } from "./../redux/slices/usersApiSlice";
+import { useRegisterMutation } from "../../../redux/slices/usersApiSlice";
 import { toast } from "react-toastify";
-import { setCredentials } from "../redux/slices/authSlice";
-import Loader from "../components/Loader";
+import { setCredentials } from "../../../redux/slices/authSlice";
+import Loader from "../../../components/Loader";
 import { FaInfoCircle } from "react-icons/fa";
 
 const RegisterScreen = () => {
