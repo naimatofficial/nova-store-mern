@@ -1,26 +1,32 @@
 import React, { Suspense, lazy } from "react";
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // ** COMPONENTS ** //
 import Loader from "./components/Loader";
 import RootLayout from "./layouts/_root/RootLayout";
-const NotFound = lazy(() => import("./components/NotFound"));
-
-// ** SCREENS OR LAYOUTS ** //
-const HomeScreen = lazy(() => import("./screens/HomeScreen"));
-const LoginScreen = lazy(() => import("./screens/LoginScreen"));
-const RegisterScreen = lazy(() => import("./screens/RegisterScreen"));
-const ProductScreen = lazy(() => import("./screens/ProductScreen"));
-const ProfileScreen = lazy(() => import("./screens/ProfileScreen"));
-const CartScreen = lazy(() => import("./screens/CartScreen"));
-const CheckoutScreen = lazy(() => import("./screens/CheckoutScreen"));
-const Dashboard = lazy(() => import("./dashboard"));
-const DashboardLayout = lazy(() => import("./layouts/DashboardLayout"));
 import AuthLayout from "./layouts/_auth/AuthLayout";
 import SignInForm from "./layouts/_auth/form/SignInForm";
 import SignUpForm from "./layouts/_auth/form/SignUpForm";
+const NotFound = lazy(() => import("./components/NotFound"));
+
+// ** SCREENS OR LAYOUTS ** //
+const HomeScreen = lazy(() => import("./layouts/_root/screens/HomeScreen"));
+const ProductScreen = lazy(() =>
+	import("./layouts/_root/screens/ProductScreen")
+);
+const ProfileScreen = lazy(() =>
+	import("./layouts/_root/screens/ProfileScreen")
+);
+const CartScreen = lazy(() => import("./layouts/_root/screens/CartScreen"));
+const CheckoutScreen = lazy(() =>
+	import("./layouts/_root/screens/CheckoutScreen")
+);
+const DashboardLayout = lazy(() =>
+	import("./layouts/_dashboard/DashboardLayout")
+);
+const Dashboard = lazy(() => import("./layouts/_dashboard/pages/Dashboard"));
 
 function App() {
 	return (
@@ -30,7 +36,7 @@ function App() {
 			<Suspense fallback={<Loader />}>
 				<Routes>
 					{/* Auth Layout  */}
-					<Route path="/auth/*" element={<AuthLayout />}>
+					<Route path="/auth" element={<AuthLayout />}>
 						<Route path="/auth/sign-in" element={<SignInForm />} />
 						<Route path="/auth/sign-up" element={<SignUpForm />} />
 					</Route>
@@ -44,7 +50,7 @@ function App() {
 						<Route path="/checkout" element={<CheckoutScreen />} />
 					</Route>
 
-					<Route path="/dashboard/*" element={<DashboardLayout />}>
+					<Route path="/dashboard" element={<DashboardLayout />}>
 						<Route index element={<Dashboard />} />
 					</Route>
 

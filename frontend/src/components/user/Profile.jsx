@@ -1,13 +1,12 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { clearViewedProducts } from "../../redux/slices/recentlyViewedSlice";
-import { Button } from "@material-tailwind/react";
+// import { clearViewedProducts } from "../../redux/slices/recentlyViewedSlice";
 
 const Profile = ({ user }) => {
 	const dispatch = useDispatch();
-	const clearRecentlyViewedProducts = () => {
-		dispatch(clearViewedProducts());
-	};
+	// const clearRecentlyViewedProducts = () => {
+	// 	dispatch(clearViewedProducts());
+	// };
 
 	return (
 		<div className="w-3/4 bg-blue-gray-300 mx-auto py-3 px-6 flex flex-col md:flex-row">

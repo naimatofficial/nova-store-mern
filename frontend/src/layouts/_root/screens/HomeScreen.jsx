@@ -1,9 +1,8 @@
 import React from "react";
 import { Alert, Typography } from "@material-tailwind/react";
-import { useGetProductsQuery } from "../redux/slices/productsApiSlice";
-import ProductList from "../components/product/ProductList";
-import Loader from "../components/Loader";
-import ProductCarousel from "../components/product/ViewedProducts";
+import Loader from "../../../components/Loader";
+import { useGetProductsQuery } from "../../../redux/slices/productsApiSlice";
+import ProductList from "../../../components/product/ProductList";
 
 const HomeScreen = () => {
 	const { data, isLoading, isError, error } = useGetProductsQuery({});
@@ -21,7 +20,7 @@ const HomeScreen = () => {
 			<div className="p-5 mt-5">
 				<Typography variant="h4">Popular products</Typography>
 				<ProductList products={data.doc} />
-				<ProductCarousel />
+				{/* <ProductCarousel /> */}
 			</div>
 		);
 	} else {

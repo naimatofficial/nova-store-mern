@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const DashboardLayout = () => {
-  return (
-    <div>DashboardLayout</div>
-  )
-}
+	const isAuthenticated = true;
+	const navigate = useNavigate();
 
-export default DashboardLayout
+	useEffect(() => {
+		if (!isAuthenticated) {
+			return navigate("/auth/sign-in");
+		}
+	}, [isAuthenticated, navigate]);
+
+	return (
+		<div>
+			DashboardLayout
+			<Outlet />
+		</div>
+	);
+};
+
+export default DashboardLayout;

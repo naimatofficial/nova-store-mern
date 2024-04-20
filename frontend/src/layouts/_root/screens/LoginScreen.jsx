@@ -8,9 +8,9 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLoginMutation } from "../redux/slices/usersApiSlice";
-import { setCredentials } from "../redux/slices/authSlice";
 import { toast } from "react-toastify";
+import { setCredentials } from "../../../redux/slices/authSlice";
+import { useLoginMutation } from "../../../redux/slices/usersApiSlice";
 
 const LoginScreen = () => {
 	const [email, setEmail] = useState("");

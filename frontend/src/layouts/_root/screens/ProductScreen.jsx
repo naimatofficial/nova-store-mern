@@ -4,8 +4,8 @@ import { Alert } from "@material-tailwind/react";
 
 import ProductDetails from "../../../components/product/ProductDetails";
 import Loader from "../../../components/Loader";
-
 import { useGetProductDetailsQuery } from "../../../redux/slices/productsApiSlice";
+
 
 const ProductScreen = () => {
 	const { productId } = useParams();

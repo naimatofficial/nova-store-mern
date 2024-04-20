@@ -1,11 +1,10 @@
 import React from "react";
-import CartList from "../components/cart/CartList";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Typography } from "@material-tailwind/react";
-
-import CartSummary from "../components/cart/CartSummary";
-import { clearCartItems } from "../redux/slices/cartSlice";
+import { clearCartItems } from "../../../redux/slices/cartSlice";
+import CartList from "./../../../components/cart/CartList";
+import CartSummary from "./../../../components/cart/CartSummary";
 
 const CartScreen = () => {
 	const { cartItems } = useSelector((state) => state.cart);
