@@ -58,8 +58,8 @@ const ProductDetails = ({ product }) => {
 
 	const addFavoriteHandler = () => {
 		setFavorite(isFavorite ? 0 : 1);
-		console.log("fav: ", favorite);
-		if (favorite === 0) {
+		if (!favorite) {
+			console.log("favorite");
 			dispatch(addToFavorites(product));
 		} else {
 			dispatch(removeFromFavorites(product._id));
@@ -167,7 +167,7 @@ const ProductDetails = ({ product }) => {
 					</Link>
 					<div className="flex justify-between gap-2">
 						<Button
-							className="text-sm flex-grow  rounded-full"
+							className="btn primary-btn flex-grow "
 							onClick={addToCartHandler}
 							disabled={product.countInStock < 1}
 						>

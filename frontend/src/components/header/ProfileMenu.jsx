@@ -40,6 +40,7 @@ const ProfileMenu = ({ user }) => {
 
 	return (
 		<Menu>
+			<Typography>👋 Hello, {user.name}</Typography>
 			<MenuHandler>
 				{/* <Avatar
 					variant="circular"
@@ -47,6 +48,7 @@ const ProfileMenu = ({ user }) => {
 					className="cursor-pointer"
 					src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
 				/> */}
+
 				<div className="cursor-pointer">
 					<Avatar username={user.name} />
 				</div>

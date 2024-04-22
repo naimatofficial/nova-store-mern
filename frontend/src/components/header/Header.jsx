@@ -63,13 +63,13 @@ export default function Header() {
 							<ProfileMenu user={userInfo.user} />
 						) : (
 							<>
-								<Link to="/login">
-									<Button variant="outlined" size="sm" className="rounded-full">
+								<Link to="/auth/sign-in">
+									<Button size="sm" className="btn secondary-btn">
 										Login
 									</Button>
 								</Link>
-								<Link to="/register">
-									<Button variant="gradient" size="sm" className="rounded-full">
+								<Link to="/auth/sign-up">
+									<Button size="sm" className="btn primary-btn">
 										Register
 									</Button>
 								</Link>
@@ -83,9 +83,11 @@ export default function Header() {
 							}}
 							className="bg-gray-300 text-black"
 						>
-							<button className="bg-gray-200 p-3 rounded-full hover:bg-gray-300 transition-all ease-in">
-								<FaHeart className="text-2xl text-pink-500" />
-							</button>
+							<Link to="/favorite-products">
+								<button className="bg-gray-200 p-3 rounded-full hover:bg-gray-300 transition-all ease-in">
+									<FaHeart className="text-2xl text-pink-500" />
+								</button>
+							</Link>
 						</Tooltip>
 
 						<CartIcon />

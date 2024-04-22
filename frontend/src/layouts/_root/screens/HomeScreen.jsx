@@ -18,8 +18,10 @@ const HomeScreen = () => {
 	if (data && Array.isArray(data.doc) && data.doc.length > 0) {
 		return (
 			<div className="p-5 mt-5">
-				<Typography variant="h4">Popular products</Typography>
-				<ProductList products={data.doc} />
+				<Typography variant="h3" className="primary-heading">
+					Most popular products
+				</Typography>
+				<ProductList products={data?.doc} />
 				{/* <ProductCarousel /> */}
 			</div>
 		);

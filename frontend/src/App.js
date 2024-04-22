@@ -9,6 +9,9 @@ import RootLayout from "./layouts/_root/RootLayout";
 import AuthLayout from "./layouts/_auth/AuthLayout";
 import SignInForm from "./layouts/_auth/form/SignInForm";
 import SignUpForm from "./layouts/_auth/form/SignUpForm";
+import Products from "./layouts/_dashboard/pages/Products";
+import Users from "./layouts/_dashboard/pages/Users";
+import FavoriteProductScreen from "./layouts/_root/screens/FavoriteProductScreen";
 const NotFound = lazy(() => import("./components/NotFound"));
 
 // ** SCREENS OR LAYOUTS ** //
@@ -45,6 +48,10 @@ function App() {
 					<Route path="/" element={<RootLayout />}>
 						<Route index element={<HomeScreen />} />
 						<Route path="/product/:productId" element={<ProductScreen />} />
+						<Route
+							path="/favorite-products"
+							element={<FavoriteProductScreen />}
+						/>
 						<Route path="/profile" element={<ProfileScreen />} />
 						<Route path="/cart" element={<CartScreen />} />
 						<Route path="/checkout" element={<CheckoutScreen />} />
@@ -52,6 +59,8 @@ function App() {
 
 					<Route path="/dashboard" element={<DashboardLayout />}>
 						<Route index element={<Dashboard />} />
+						<Route path="/dashboard/products" element={<Products />} />
+						<Route path="/dashboard/users" element={<Users />} />
 					</Route>
 
 					<Route path="*" element={<NotFound />} />
