@@ -113,7 +113,7 @@ const ProductDetails = ({ product }) => {
 							</Typography>
 							<Typography variant="paragraph">
 								<span className="text-gray-700 mr-2">Price:</span>
-								<span className="font-bold text-2xl">${product.price}</span>
+								<span className="font-bold text-xl">Rs. {product.price}</span>
 							</Typography>
 						</div>
 						<div className="flex flex-col gap-3">

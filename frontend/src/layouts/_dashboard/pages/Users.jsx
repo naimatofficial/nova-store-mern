@@ -1,7 +1,8 @@
 import React from "react";
 import Loader from "../../../components/Loader";
-import TableView from "../../../components/table/TableView";
 import { useGetUsersQuery } from "../../../redux/slices/usersApiSlice";
+import ErrorMessage from "../../../components/ErrorMessage";
+import UsersTable from "../_components/UsersTable";
 
 const Users = () => {
 	const { data: users, isLoading, isError, error } = useGetUsersQuery({});
@@ -10,17 +11,12 @@ const Users = () => {
 		return <Loader />;
 	}
 
-	if (isError && error && error?.data) {
-		return (
-			<div>
-				<h1>Error: {error?.data?.message}</h1>
-			</div>
-		);
-	}
-
 	return (
 		<div>
-			<TableView data={users?.doc} />
+			{error && isError && <ErrorMessage error={error} />}
+			<h1 className="text-4xl text-yellow-900 font-bold ml-6">All Users</h1>
+
+			<UsersTable data={users?.doc} />
 		</div>
 	);
 };

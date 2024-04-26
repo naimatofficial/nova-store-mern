@@ -46,4 +46,16 @@ code {
 	.error-box {
 		@apply w-1/2 text-center bg-red-100 font-bold text-3xl py-20 rounded-md mx-auto;
 	}
+
+	.hero-feature-box {
+		@apply max-w-xs bg-gray-800 bg-opacity-75 p-6 rounded-lg flex-shrink-0;
+	}
+
+	.hero-icon {
+		@apply w-8 h-8 text-yellow-900 mr-3;
+	}
+
+	.whatsApp-btn {
+		@apply fixed bottom-10 cursor-pointer right-10 bg-green-500 text-blue-gray-900 font-semibold px-4 py-2 shadow-light-green-400 rounded-full shadow-lg;
+	}
 }

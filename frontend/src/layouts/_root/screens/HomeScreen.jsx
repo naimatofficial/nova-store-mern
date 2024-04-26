@@ -3,6 +3,7 @@ import { Alert, Typography } from "@material-tailwind/react";
 import Loader from "../../../components/Loader";
 import { useGetProductsQuery } from "../../../redux/slices/productsApiSlice";
 import ProductList from "../../../components/product/ProductList";
+import Hero from "../../../components/Hero";
 
 const HomeScreen = () => {
 	const { data, isLoading, isError, error } = useGetProductsQuery({});
@@ -15,19 +16,23 @@ const HomeScreen = () => {
 		return <Alert color="red">{error}</Alert>;
 	}
 
-	if (data && Array.isArray(data.doc) && data.doc.length > 0) {
-		return (
-			<div className="p-5 mt-5">
-				<Typography variant="h3" className="primary-heading">
-					Most popular products
-				</Typography>
-				<ProductList products={data?.doc} />
-				{/* <ProductCarousel /> */}
-			</div>
-		);
-	} else {
-		return <p>Products not found!</p>;
-	}
+	return (
+		<div className="px-4 mt-6">
+			<Hero />
+			{data && Array.isArray(data.doc) && data.doc.length > 0 ? (
+				<>
+					<Typography variant="h3" className="primary-heading mt-4">
+						Most popular products
+					</Typography>
+					<ProductList products={data?.doc} />
+				</>
+			) : (
+				<div className="error-box">
+					<p>Products not found!</p>
+				</div>
+			)}
+		</div>
+	);
 };
 
 export default HomeScreen;

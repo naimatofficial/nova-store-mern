@@ -38,10 +38,7 @@ const DashboardLayout = () => {
 	return (
 		<div className="flex h-screen">
 			<Sidebar sidebarItems={sidebarItems} />
-			<div className="flex-1 p-10">
-				{/* Your main content here */}
-				<h1 className="text-2xl font-bold">Main Content Area</h1>
-				<p>Current Tab</p>
+			<div className="flex-1 p-10 w-4/5">
 				<Outlet />
 			</div>
 		</div>

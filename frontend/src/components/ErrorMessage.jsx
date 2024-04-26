@@ -7,7 +7,7 @@ const ErrorMessage = React.memo(({ error }) => {
 				<h1 className="text-blue-gray-900">
 					{error?.data?.error?.name}: {error?.data?.message}
 				</h1>
-				<p className=" text-blue-600">Login again</p>
+				<p className=" text-blue-600">Note: Logout and Login again</p>
 			</div>
 		);
 	}

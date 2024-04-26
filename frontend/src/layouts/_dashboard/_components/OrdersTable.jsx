@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 
-const TableView = ({ data }) => {
+const OrdersTable = ({ data }) => {
 	return data ? (
 		<div className="overflow-x-auto m-4 shadow-md rounded-md">
 			<table className="min-w-full table-auto">
@@ -32,7 +32,7 @@ const TableView = ({ data }) => {
 					) : (
 						<tr>
 							<td colSpan={4} className="py-4 px-4 text-center">
-								No data available!
+								No orders available!
 							</td>
 						</tr>
 					)}
@@ -42,8 +42,8 @@ const TableView = ({ data }) => {
 	) : null;
 };
 
-TableView.propTypes = {
+OrdersTable.propTypes = {
 	data: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default TableView;
+export default OrdersTable;

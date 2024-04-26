@@ -1,13 +1,33 @@
 import { Typography } from "@material-tailwind/react";
 import PropTypes from "prop-types";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { useDeleteProductMutation } from "../../../redux/slices/productsApiSlice";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const ProductsTable = ({ data }) => {
+	const [deleteProduct] = useDeleteProductMutation();
+	const navigate = useNavigate();
+
+	const deleteHandler = async (productId) => {
+		try {
+			await deleteProduct(productId);
+			console.log("Product deleted successfully");
+			toast.success("Product deleted successfully");
+			// Automatically refetch the data after deleting a product
+			navigate("/dashboard/products");
+		} catch (error) {
+			console.error("Error deleting product:", error);
+		}
+	};
+
+	const editHandler = (id) => {};
+
 	return (
 		<div className="overflow-x-auto m-4 shadow-md rounded-md">
 			<table className="min-w-full table-auto">
 				<thead>
-					<tr className="bg-green-400 text-white">
+					<tr className="bg-yellow-900 text-white">
 						<th className="py-2 px-4 text-left">Product</th>
 						<th className="py-2 px-4 text-left">Price</th>
 						<th className="py-2 px-4 text-left">Stock</th>
@@ -33,8 +53,13 @@ const ProductsTable = ({ data }) => {
 								<td className="py-2 px-4">{item.countInStock}</td>
 								<td className="py-2 px-4 ">
 									<div className="flex items-center gap-4">
-										<FaEdit className="text-green-500" />
-										<FaTrashAlt className="text-red-600" />
+										<FaEdit
+											className="text-green-500"
+											onClick={() => editHandler()}
+										/>
+										<button onClick={() => deleteHandler(item._id)}>
+											<FaTrashAlt className="text-red-600" />
+										</button>
 									</div>
 								</td>
 							</tr>
@@ -42,7 +67,7 @@ const ProductsTable = ({ data }) => {
 					) : (
 						<tr>
 							<td colSpan={4} className="py-4 px-4 text-center">
-								No data available!
+								No products available!
 							</td>
 						</tr>
 					)}
