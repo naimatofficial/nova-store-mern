@@ -11,11 +11,12 @@ import {
 } from "../controllers/productController.js";
 import checkObjectId from "../middleware/checkObjectId.js";
 import { protect, restrictTo } from "../middleware/authMiddleware.js";
+import upload from "./../middleware/upload.js";
 
 router
 	.route("/")
 	.get(getProducts)
-	.post(protect, restrictTo("admin"), createProduct);
+	.post(protect, restrictTo("admin"), upload.single("image"), createProduct);
 
 router.route("/:id/reviews").post(protect, checkObjectId, createProductReview);
 

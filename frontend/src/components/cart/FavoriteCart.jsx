@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { addToCart, removeFromCart } from "../../redux/slices/cartSlice";
+import { addToCart } from "../../redux/slices/cartSlice";
 import { useDispatch } from "react-redux";
 import { Button, Typography } from "@material-tailwind/react";
 import { FaTrash } from "react-icons/fa6";

@@ -1,6 +1,6 @@
 import React from "react";
 import Loader from "../../../components/Loader";
-import TableView from "../../../components/TableView";
+import TableView from "../../../components/table/TableView";
 import { useGetUsersQuery } from "../../../redux/slices/usersApiSlice";
 
 const Users = () => {

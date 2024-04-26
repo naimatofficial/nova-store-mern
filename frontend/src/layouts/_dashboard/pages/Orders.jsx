@@ -1,28 +1,22 @@
 import React from "react";
-import { useGetProductsQuery } from "../../../redux/slices/productsApiSlice";
 import Loader from "../../../components/Loader";
-import TableView from "../../../components/TableView";
+import TableView from "../../../components/table/TableView";
+import { useGetOrdersQuery } from "../../../redux/slices/ordersApiSlice";
+import ErrorMessage from "./../../../components/ErrorMessage";
 
-const Products = () => {
-	const { data: products, isLoading, isError, error } = useGetProductsQuery({});
+const Orders = () => {
+	const { data: orders, isLoading, isError, error } = useGetOrdersQuery({});
 
 	if (isLoading) {
 		return <Loader />;
 	}
 
-	if (isError && error && error?.data) {
-		return (
-			<div>
-				<h1>Error: {error?.data?.message}</h1>
-			</div>
-		);
-	}
-
 	return (
 		<div>
-			<TableView data={products?.doc} />
+			{error && isError && <ErrorMessage error={error} />}
+			<TableView data={orders?.doc} />
 		</div>
 	);
 };
 
-export default Products;
+export default Orders;

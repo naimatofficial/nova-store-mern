@@ -42,4 +42,8 @@ code {
 	.primary-heading {
 		@apply text-gray-900 font-semibold text-4xl;
 	}
+
+	.error-box {
+		@apply w-1/2 text-center bg-red-100 font-bold text-3xl py-20 rounded-md mx-auto;
+	}
 }

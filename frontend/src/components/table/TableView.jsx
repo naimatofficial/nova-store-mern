@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 const TableView = ({ data }) => {
-	return (
+	return data ? (
 		<div className="overflow-x-auto m-4 shadow-md rounded-md">
 			<table className="min-w-full table-auto">
 				<thead>
@@ -12,7 +12,7 @@ const TableView = ({ data }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{data.length > 0 ? (
+					{data?.length > 0 ? (
 						data.map((item, index) => (
 							<tr
 								key={index}
@@ -33,7 +33,7 @@ const TableView = ({ data }) => {
 				</tbody>
 			</table>
 		</div>
-	);
+	) : null;
 };
 
 TableView.propTypes = {

@@ -9,7 +9,28 @@ import {
 	updateOne,
 } from "./handleFactory.js";
 
-export const createProduct = createOne(Product);
+export const createProduct = async (req, res) => {
+	const { name, description, brand, category, price, countInStock } = req.body;
+	const imagePath = req.file.path;
+
+	const newProduct = new Product({
+		name,
+		description,
+		brand,
+		category,
+		price,
+		countInStock,
+		image: imagePath,
+	});
+
+	try {
+		const savedProduct = await newProduct.save();
+		res.status(201).json(savedProduct);
+	} catch (err) {
+		res.status(400).json({ message: err.message });
+	}
+};
+
 export const getProducts = getAll(Product);
 export const getProduct = getOne(Product);
 export const deleteProduct = deleteOne(Product);

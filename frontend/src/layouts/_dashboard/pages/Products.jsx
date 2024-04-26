@@ -1,7 +1,7 @@
 import React from "react";
 import { useGetProductsQuery } from "../../../redux/slices/productsApiSlice";
 import Loader from "../../../components/Loader";
-import TableView from "../../../components/TableView";
+import ProductsTable from "../../../components/table/ProductsTable";
 
 const Products = () => {
 	const { data: products, isLoading, isError, error } = useGetProductsQuery({});
@@ -20,7 +20,7 @@ const Products = () => {
 
 	return (
 		<div>
-			<TableView data={products?.doc} />
+			<ProductsTable data={products?.doc} />
 		</div>
 	);
 };

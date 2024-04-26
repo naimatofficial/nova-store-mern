@@ -1,17 +1,12 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Typography } from "@material-tailwind/react";
 import FavoriteCart from "../../../components/cart/FavoriteCart";
 
 const FavoriteProductScreen = () => {
 	const favoriteProducts = useSelector((state) => state.favoriteProducts);
 
-	console.log(favoriteProducts);
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		console.log("refetch");
-	}, [favoriteProducts, favoriteProducts?.products]);
+	useEffect(() => {}, [favoriteProducts, favoriteProducts?.products]);
 
 	return (
 		<div className="p-4 mx-auto w-3/4">
