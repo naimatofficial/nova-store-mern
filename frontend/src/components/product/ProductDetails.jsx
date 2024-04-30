@@ -83,9 +83,11 @@ const ProductDetails = ({ product }) => {
 				{/* Product Image */}
 				<div>
 					<img
-						className="h-2/4 w-full rounded-lg object-cover object-center shadow-md"
+						className="h-1/2 w-full rounded-lg object-cover object-center shadow-md"
 						src={product.image}
 						alt={product.name}
+						width={200}
+						height={200}
 					/>
 				</div>
 

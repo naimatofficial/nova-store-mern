@@ -1,10 +1,40 @@
-import { List } from "@material-tailwind/react";
+import {
+	Button,
+	List,
+	ListItem,
+	ListItemPrefix,
+} from "@material-tailwind/react";
 import SidebarItem from "./SidebarItem";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useLogoutMutation } from "../../../redux/slices/usersApiSlice";
+import { logout } from "../../../redux/slices/authSlice";
+import { FaSignOutAlt } from "react-icons/fa";
 
 const Sidebar = ({ sidebarItems }) => {
 	const sidebarWithoutLogout = sidebarItems.slice(0, -1); // Exclude the last item (Logout)
 	const logoutItem = sidebarItems.slice(-1)[0]; // Get the last item (Logout)
+
+	const [logoutAPI, { isLoading }] = useLogoutMutation();
+
+	const userInfo = useSelector((state) => state.auth.userInfo); // Get the entire Redux state
+	const accessToken = userInfo.accessToken;
+
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	const logoutHandler = async () => {
+		try {
+			await logoutAPI(accessToken);
+			dispatch(logout());
+
+			if (!isLoading && !userInfo) {
+				navigate("/auth/sign-in");
+			}
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
 	return (
 		<div className="min-h-screen w-[18rem] shadow-md bg-blue-gray-900 text-gray-50 shadow-blue-gray-900/5">
@@ -25,7 +55,19 @@ const Sidebar = ({ sidebarItems }) => {
 						<SidebarItem key={index} {...item} />
 					))}
 				</div>
-				<SidebarItem {...logoutItem} />
+				{/* Logout Button */}
+				<Button
+					className="nav-link"
+					activeclassname="active"
+					onClick={logoutHandler}
+				>
+					<ListItem>
+						<ListItemPrefix>
+							<FaSignOutAlt className="h-5 w-5" />
+						</ListItemPrefix>
+						{logoutItem.name}
+					</ListItem>
+				</Button>
 			</List>
 		</div>
 	);

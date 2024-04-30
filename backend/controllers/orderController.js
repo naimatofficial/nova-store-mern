@@ -1,4 +1,4 @@
-import Order from "../models/OrderModel.js";
+import Order from "../models/orderModel.js";
 import {
 	createOne,
 	deleteOne,
@@ -9,6 +9,6 @@ import {
 
 export const createOrder = createOne(Order);
 export const getOrders = getAll(Order);
-export const getOrder = getOne(Order);
+export const getOrder = getOne(Order, ["products", "customerId"]);
 export const deleteOrder = deleteOne(Order);
 export const updateOrder = updateOne(Order);

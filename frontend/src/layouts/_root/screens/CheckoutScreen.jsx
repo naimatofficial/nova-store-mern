@@ -1,57 +1,79 @@
-import React, { useState } from "react";
-import { Stepper, Step, Button, Typography } from "@material-tailwind/react";
+import { useForm } from "react-hook-form";
+import CustomInput from "../../_dashboard/_components/CustomInput";
 
-import { FaRegAddressCard, FaMoneyBill, FaIdCard } from "react-icons/fa";
+const CheckoutScreen = () => {
+	const storedData = JSON.parse(localStorage.getItem("checkoutData")) || {};
 
-export default function CheckoutScreen() {
-	const [activeStep, setActiveStep] = useState(0);
-	const [isLastStep, setIsLastStep] = useState(false);
-	const [isFirstStep, setIsFirstStep] = useState(false);
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		defaultValues: storedData,
+	});
 
-	const steps = [
-		{ label: "Address", icon: <FaMoneyBill className="h-5 w-5" /> },
-		{ label: "Payment Method", icon: <FaRegAddressCard className="h-5 w-5" /> },
-		{ label: "Card Information", icon: <FaIdCard className="h-5 w-5" /> },
-	];
-
-	const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1);
-	const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1);
+	const onSubmit = (data) => {
+		// Store all the form data in local storage
+		localStorage.setItem("checkoutData", JSON.stringify(data));
+		// Place order logic here
+		console.log("Order placed with data:", data);
+	};
 
 	return (
-		<div className="w-full px-24 py-4">
-			<Stepper
-				activeStep={activeStep}
-				isLastStep={(value) => setIsLastStep(value)}
-				isFirstStep={(value) => setIsFirstStep(value)}
-			>
-				{steps.map((step, index) => (
-					<Step key={step.label} onClick={() => setActiveStep(index)}>
-						{step.icon}
-						<div className="absolute -bottom-[4.5rem] w-max text-center">
-							<Typography
-								variant="h6"
-								color={activeStep === index ? "blue-gray" : "gray"}
-							>
-								Step {index + 1}
-							</Typography>
-							<Typography
-								color={activeStep === index ? "blue-gray" : "gray"}
-								className="font-normal"
-							>
-								{step.label}
-							</Typography>
-						</div>
-					</Step>
-				))}
-			</Stepper>
-			<div className="mt-32 flex justify-between">
-				<Button onClick={handlePrev} disabled={isFirstStep}>
-					Prev
-				</Button>
-				<Button onClick={handleNext} disabled={isLastStep}>
-					Next
-				</Button>
-			</div>
+		<div className="container mx-auto mt-10">
+			<h1 className="text-2xl font-bold mb-6">Checkout</h1>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<div className="mb-4">
+					<CustomInput
+						type="text"
+						label="Address"
+						placeholder=""
+						name="address"
+						register={register}
+						error={errors.address}
+					/>
+				</div>
+				<div className="mb-4">
+					<CustomInput
+						type="text"
+						label="Phone Number"
+						placeholder=""
+						name="phoneNumber"
+						register={register}
+						error={errors.phoneNumber}
+					/>
+				</div>
+				<div className="mb-4">
+					<CustomInput
+						type="number"
+						label="Postal Code"
+						placeholder=""
+						name="postalCode"
+						register={register}
+						error={errors.postalCode}
+					/>
+				</div>
+				<div className="mb-4">
+					<label className="block text-sm font-medium text-gray-700">
+						Payment Method
+					</label>
+					<select
+						className="custom-input"
+						defaultValue="COD"
+						{...register("paymentMethod")}
+					>
+						<option value="COD">Cash on Delivery</option>
+					</select>
+				</div>
+				<button
+					type="submit"
+					className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+				>
+					Place Order
+				</button>
+			</form>
 		</div>
 	);
-}
+};
+
+export default CheckoutScreen;

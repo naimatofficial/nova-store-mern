@@ -9,9 +9,9 @@ import { removeFromFavorites } from "../../redux/slices/favoriteProductsSlice";
 const FavoriteCart = ({ items }) => {
 	const dispatch = useDispatch();
 
-	const addToCartHandler = (product) => {
-		const qty = 1;
+	const addToCartHandler = (product, qty) => {
 		dispatch(addToCart({ ...product, qty }));
+		dispatch(removeFromFavorites(product._id));
 	};
 
 	const removeFromCartHandler = (id) => {
@@ -21,7 +21,10 @@ const FavoriteCart = ({ items }) => {
 	return (
 		<div className="flex flex-col gap-3 flex-1">
 			{items.map((item) => (
-				<div className="bg-white p-3 flex gap-3 items-center rounded-lg shadow-sm">
+				<div
+					key={item._id}
+					className="bg-white p-3 flex gap-3 items-center rounded-lg shadow-sm"
+				>
 					<div>
 						<img
 							src={item.image}
@@ -51,7 +54,10 @@ const FavoriteCart = ({ items }) => {
 						</div>
 
 						<div className="flex justify-end gap-4 items-center p-2">
-							<Button onClick={addToCartHandler} className="btn primary-btn">
+							<Button
+								onClick={(e) => addToCartHandler(item, 1)}
+								className="btn primary-btn"
+							>
 								Add to Cart
 							</Button>
 							<Button

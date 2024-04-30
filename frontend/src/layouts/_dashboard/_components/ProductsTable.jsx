@@ -3,19 +3,17 @@ import PropTypes from "prop-types";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { useDeleteProductMutation } from "../../../redux/slices/productsApiSlice";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
-const ProductsTable = ({ data }) => {
+const ProductsTable = ({ data, refetch }) => {
 	const [deleteProduct] = useDeleteProductMutation();
-	const navigate = useNavigate();
 
 	const deleteHandler = async (productId) => {
 		try {
 			await deleteProduct(productId);
 			console.log("Product deleted successfully");
 			toast.success("Product deleted successfully");
-			// Automatically refetch the data after deleting a product
-			navigate("/dashboard/products");
+
+			refetch();
 		} catch (error) {
 			console.error("Error deleting product:", error);
 		}

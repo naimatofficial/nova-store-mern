@@ -9,9 +9,9 @@ const CustomInput = ({ type, label, placeholder, name, register, error }) => {
 				name={name}
 				placeholder={placeholder}
 				{...register(name, { required: `${label} is required` })}
-				className={`mt-1 block w-full px-3 py-2 border ${
+				className={`custom-input ${
 					error ? "border-red-500" : "border-gray-300"
-				} rounded-md shadow-sm focus:outline-none focus:border-blue-500 sm:text-sm`}
+				}`}
 			/>
 			{error && <p className="mt-1 text-sm text-red-500">{error.message}</p>}
 		</div>

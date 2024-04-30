@@ -38,7 +38,7 @@ const DashboardLayout = () => {
 	return (
 		<div className="flex h-screen">
 			<Sidebar sidebarItems={sidebarItems} />
-			<div className="flex-1 p-10 w-4/5">
+			<div className="flex-1 p-10 w-4/5 mx-auto">
 				<Outlet />
 			</div>
 		</div>

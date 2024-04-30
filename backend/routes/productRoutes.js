@@ -1,5 +1,5 @@
 import express from "express";
-const router = express.Router();
+
 import {
 	getProducts,
 	getProduct,
@@ -11,12 +11,13 @@ import {
 } from "../controllers/productController.js";
 import checkObjectId from "../middleware/checkObjectId.js";
 import { protect, restrictTo } from "../middleware/authMiddleware.js";
-import upload from "./../middleware/upload.js";
+
+const router = express.Router();
 
 router
 	.route("/")
 	.get(getProducts)
-	.post(protect, restrictTo("admin"), upload.single("image"), createProduct);
+	.post(protect, restrictTo("admin"), createProduct);
 
 router.route("/:id/reviews").post(protect, checkObjectId, createProductReview);
 

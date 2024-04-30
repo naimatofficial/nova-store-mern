@@ -2,12 +2,17 @@ import { Schema, model } from "mongoose";
 
 const orderSchema = new Schema(
 	{
-		customerName: {
-			type: String,
+		customerId: {
+			type: Schema.Types.ObjectId,
+			ref: "User",
 			required: true,
 		},
 		address: {
 			type: String,
+			required: true,
+		},
+		postalCode: {
+			type: Number,
 			required: true,
 		},
 		phoneNumber: {
@@ -26,7 +31,7 @@ const orderSchema = new Schema(
 		},
 		paymentMethod: {
 			type: String,
-			enum: ["COD"], // Only 'COD' payment method allowed
+			enum: ["COD"],
 			default: "COD",
 		},
 	},

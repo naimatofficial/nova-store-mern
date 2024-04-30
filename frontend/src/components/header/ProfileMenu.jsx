@@ -21,18 +21,14 @@ const ProfileMenu = ({ user }) => {
 
 	const isAdmin = user && user.role === "admin";
 
-	console.log(isAdmin);
-
 	const logoutHandler = async () => {
 		try {
 			await logoutAPI(accessToken);
 			dispatch(logout());
 
-			// Perform a hard refresh to re-render the entire page
-			if (isLoading) {
-				navigate("/login");
+			if (!isLoading && !userInfo) {
+				navigate("/auth/sign-in");
 			}
-			// window.location.reload();
 		} catch (err) {
 			console.error(err);
 		}
