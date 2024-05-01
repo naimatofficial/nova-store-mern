@@ -13,10 +13,10 @@ const DeleteConfirmationModal = ({ isOpen, onClose, onDelete }) => {
 			<DialogHeader>Delete Confirmation</DialogHeader>
 			<DialogBody>Are you sure you want to delete this item?</DialogBody>
 			<DialogFooter>
-				<Button variant="text" color="red" onClick={onClose} className="mr-1">
+				<Button variant="text" color="green" onClick={onClose} className="mr-1">
 					<span>Cancel</span>
 				</Button>
-				<Button variant="gradient" color="green" onClick={onDelete}>
+				<Button variant="gradient" color="red" onClick={onDelete}>
 					<span>Delete</span>
 				</Button>
 			</DialogFooter>

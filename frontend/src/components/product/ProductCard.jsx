@@ -46,7 +46,7 @@ export default function ProductCard({ product }) {
 							color="blue-gray"
 							className="font-medium text-lg text-orange-800"
 						>
-							Rs. {product.price}
+							${product.price}
 						</Typography>
 					</div>
 					<div className="flex items-center gap-2">

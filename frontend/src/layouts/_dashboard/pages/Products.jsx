@@ -4,6 +4,7 @@ import Loader from "../../../components/Loader";
 import ProductsTable from "../_components/ProductsTable";
 import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { Button } from "@material-tailwind/react";
 
 const Products = () => {
 	const {
@@ -32,12 +33,15 @@ const Products = () => {
 				<h1 className="text-4xl text-yellow-900 font-bold ml-6">
 					All Products
 				</h1>
-				<Link
-					to="/dashboard/create-product"
-					className="btn primary-btn flex items-center justify-center gap-2"
-				>
-					<FaPlus className="h-5 w-5" />
-					Add Product
+				<Link to="/dashboard/create-product" className="">
+					<Button
+						variant="gradient"
+						color="green"
+						className="flex items-center justify-center gap-2"
+					>
+						<FaPlus className="h-5 w-5" />
+						<span>Add Product</span>
+					</Button>
 				</Link>
 			</div>
 			<ProductsTable data={products?.doc} refetch={refetch} />
