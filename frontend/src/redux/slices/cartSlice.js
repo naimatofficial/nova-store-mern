@@ -28,8 +28,6 @@ const cartSlice = createSlice({
 				state.cartItems = [...state.cartItems, item];
 			}
 
-			console.log(state.cartItems);
-
 			return updateCart(state, item);
 		},
 		removeFromCart: (state, action) => {

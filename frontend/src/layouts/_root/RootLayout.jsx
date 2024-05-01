@@ -12,7 +12,7 @@ const RootLayout = () => {
 	return (
 		<div>
 			<Header />
-			<main className="w-full">
+			<main className="w-full p-4">
 				<Outlet />
 			</main>
 			<Footer />
@@ -21,8 +21,7 @@ const RootLayout = () => {
 				className="whatsApp-btn flex justify-center items-center"
 				onClick={openWhatsAppChat}
 			>
-				<FaWhatsapp className="w-8 h-8 text-white mr-3" />
-				Chat on WhatsApp
+				<FaWhatsapp className="w-8 h-8 text-white" />
 			</button>
 		</div>
 	);

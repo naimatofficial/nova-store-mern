@@ -36,10 +36,12 @@ const DashboardLayout = () => {
 	}
 
 	return (
-		<div className="flex h-screen">
+		<div className="flex justify-center w-full gap-4 h-screen">
 			<Sidebar sidebarItems={sidebarItems} />
-			<div className="flex-1 p-10 w-4/5 mx-auto">
-				<Outlet />
+			<div className="flex flex-col flex-1 p-10 w-4/6">
+				<div className="ml-[18rem]">
+					<Outlet />
+				</div>
 			</div>
 		</div>
 	);

@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
 
 const OrdersTable = ({ data }) => {
 	return data ? (
@@ -7,9 +6,11 @@ const OrdersTable = ({ data }) => {
 			<table className="min-w-full table-auto">
 				<thead>
 					<tr className="bg-yellow-900 text-white">
-						<th className="py-2 px-4 text-left">S.No</th>
-						<th className="py-2 px-4 text-left">Name</th>
-						<th className="py-2 px-4 text-left">Action</th>
+						<th className="py-2 px-4 text-left">Order ID</th>
+						<th className="py-2 px-4 text-left">Customer ID</th>
+						<th className="py-2 px-4 text-left">Address</th>
+						<th className="py-2 px-4 text-left">Total Qty</th>
+						<th className="py-2 px-4 text-left">Total Amount</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -19,14 +20,11 @@ const OrdersTable = ({ data }) => {
 								key={index}
 								className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
 							>
-								<td className="py-2 px-4">{++index}</td>
-								<td className="py-2 px-4">{item.name}</td>
-								<td className="py-2 px-4">
-									<div className="flex items-center gap-4">
-										<FaEdit className="text-green-500" />
-										<FaTrashAlt className="text-red-600" />
-									</div>
-								</td>
+								<td className="py-2 px-4">{item._id}</td>
+								<td className="py-2 px-4">{item?.customer}</td>
+								<td className="py-2 px-4">{item.address}</td>
+								<td className="py-2 px-4">{item.totalQty}</td>
+								<td className="py-2 px-4">{item.totalAmount}</td>
 							</tr>
 						))
 					) : (

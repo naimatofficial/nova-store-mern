@@ -1,8 +1,17 @@
 import { useForm } from "react-hook-form";
 import CustomInput from "../../_dashboard/_components/CustomInput";
+import { useNavigate } from "react-router-dom";
+import { useCreateOrderMutation } from "../../../redux/slices/ordersApiSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Button } from "@material-tailwind/react";
+import { clearCartItems } from "../../../redux/slices/cartSlice";
 
 const CheckoutScreen = () => {
 	const storedData = JSON.parse(localStorage.getItem("checkoutData")) || {};
+	const cart = useSelector((state) => state.cart);
+	const { cartItems } = cart;
+
+	const [createOrder, { isLoading: orderCreating }] = useCreateOrderMutation();
 
 	const {
 		register,
@@ -12,15 +21,37 @@ const CheckoutScreen = () => {
 		defaultValues: storedData,
 	});
 
-	const onSubmit = (data) => {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	let products = [];
+
+	const onSubmit = async (data) => {
 		// Store all the form data in local storage
 		localStorage.setItem("checkoutData", JSON.stringify(data));
-		// Place order logic here
-		console.log("Order placed with data:", data);
+
+		cartItems.forEach((item) => {
+			products.push(item._id);
+		});
+
+		const totalQty = cartItems.reduce((a, c) => a + c.qty, 0);
+
+		const order = {
+			...data,
+			products,
+			totalQty,
+			totalAmount: cart.itemsPrice,
+		};
+		await createOrder(order);
+
+		if (!orderCreating) {
+			navigate("/thank-you");
+			dispatch(clearCartItems());
+		}
 	};
 
 	return (
-		<div className="container mx-auto mt-10">
+		<div className="container mx-auto mt-10 py-6">
 			<h1 className="text-2xl font-bold mb-6">Checkout</h1>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="mb-4">
@@ -65,12 +96,9 @@ const CheckoutScreen = () => {
 						<option value="COD">Cash on Delivery</option>
 					</select>
 				</div>
-				<button
-					type="submit"
-					className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
-				>
+				<Button type="submit" className="btn primary-btn float-right">
 					Place Order
-				</button>
+				</Button>
 			</form>
 		</div>
 	);

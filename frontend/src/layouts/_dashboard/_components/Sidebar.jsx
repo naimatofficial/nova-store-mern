@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLogoutMutation } from "../../../redux/slices/usersApiSlice";
 import { logout } from "../../../redux/slices/authSlice";
 import { FaSignOutAlt } from "react-icons/fa";
+import { useState } from "react";
 
 const Sidebar = ({ sidebarItems }) => {
 	const sidebarWithoutLogout = sidebarItems.slice(0, -1); // Exclude the last item (Logout)
@@ -37,7 +38,9 @@ const Sidebar = ({ sidebarItems }) => {
 	};
 
 	return (
-		<div className="min-h-screen w-[18rem] shadow-md bg-blue-gray-900 text-gray-50 shadow-blue-gray-900/5">
+		<div
+			className={`fixed top-0 left-0 h-screen w-[18rem] bg-blue-gray-900 text-gray-50 transition-all duration-300 shadow-sm`}
+		>
 			<div className="mb-2 p-4 bg-blue-gray-50 w-full flex justify-center items-center">
 				<Link to="/">
 					<img
@@ -49,25 +52,22 @@ const Sidebar = ({ sidebarItems }) => {
 					/>
 				</Link>
 			</div>
-			<List className="flex flex-col p-4 justify-between h-4/5 text-gray-100">
+			<List
+				className={`flex flex-col p-4 justify-between h-4/5 text-gray-100 overflow-hidden`}
+			>
 				<div className="flex flex-col gap-4">
 					{sidebarWithoutLogout.map((item, index) => (
 						<SidebarItem key={index} {...item} />
 					))}
 				</div>
 				{/* Logout Button */}
-				<Button
-					className="nav-link"
-					activeclassname="active"
-					onClick={logoutHandler}
-				>
-					<ListItem>
-						<ListItemPrefix>
-							<FaSignOutAlt className="h-5 w-5" />
-						</ListItemPrefix>
-						{logoutItem.name}
-					</ListItem>
-				</Button>
+
+				<ListItem onClick={logoutHandler}>
+					<ListItemPrefix>
+						<FaSignOutAlt className="h-5 w-5" />
+					</ListItemPrefix>
+					{logoutItem.name}
+				</ListItem>
 			</List>
 		</div>
 	);

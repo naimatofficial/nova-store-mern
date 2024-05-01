@@ -17,7 +17,7 @@ const HomeScreen = () => {
 	}
 
 	return (
-		<div className="px-4 mt-6">
+		<div className="mt-6">
 			<Hero />
 			{data && Array.isArray(data.doc) && data.doc.length > 0 ? (
 				<>

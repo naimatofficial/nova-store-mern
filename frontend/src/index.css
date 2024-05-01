@@ -59,7 +59,7 @@ code {
 	}
 
 	.whatsApp-btn {
-		@apply fixed bottom-10 cursor-pointer right-10 bg-green-500 text-blue-gray-900 font-semibold px-4 py-2 shadow-light-green-400 rounded-full shadow-lg;
+		@apply fixed p-3 bottom-10 cursor-pointer right-10 bg-green-500 text-blue-gray-900 font-semibold shadow-light-green-200 rounded-full shadow-lg;
 	}
 
 	.file_uploader-img {
